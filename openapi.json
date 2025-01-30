@@ -1,15 +1,1277 @@
-{"openapi":"3.1.0","info":{"title":"AI Guard","summary":"Secure everything you build with Generative AI using AI Guard, real-time evaluation and auto-correction.","description":"[For detailed documentation, please refer to https://docs.guardion.ai](https://docs.guardion.ai/)","termsOfService":"https://guardion.ai/doc/terms-of-service","contact":{"name":"Rafael Sandroni","email":"rafael@guardion.ai"},"version":"0.1.1"},
-  
-  
-  "servers": [
-    {
-      "url": "https://api.guardion.ai"
-    }
-  ],
-  "security": [
-    {
-      "bearerAuth": []
-    }
-  ],
-  
-  "paths":{"/v1/applications":{"post":{"tags":["Application"],"summary":"Create","description":"Create a new application.","operationId":"Application-create","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/Application"}}},"required":true},"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"$ref":"#/components/schemas/Application"}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}},"security":[{"HTTPBearer":[]}]}},"/v1/applications/{application_id}":{"delete":{"tags":["Application"],"summary":"Delete Application","description":"Delete an application by ID.","operationId":"Application-delete_application","security":[{"HTTPBearer":[]}],"parameters":[{"name":"application_id","in":"path","required":true,"schema":{"type":"string","title":"Application Id"}}],"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"title":"Response Application-Delete Application"}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}}},"/v1/applications/{application_id}/policies":{"post":{"tags":["Application"],"summary":"Create Policy","description":"Create a new policy for a specific application.","operationId":"Application-create_policy","security":[{"HTTPBearer":[]}],"parameters":[{"name":"application_id","in":"path","required":true,"schema":{"type":"string","title":"Application Id"}}],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/Policy-Input"}}}},"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"$ref":"#/components/schemas/Policy-Output"}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}},"get":{"tags":["Application"],"summary":"List Policies","description":"List all policies for a specific application.","operationId":"Application-list_policies","security":[{"HTTPBearer":[]}],"parameters":[{"name":"application_id","in":"path","required":true,"schema":{"type":"string","title":"Application Id"}}],"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/Policy-Output"},"title":"Response Application-List Policies"}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}}},"/v1/applications/{application_id}/policies/{policy_id}":{"put":{"tags":["Application"],"summary":"Update Policy","description":"Update an existing policy for a specific application.","operationId":"Application-update_policy","security":[{"HTTPBearer":[]}],"parameters":[{"name":"application_id","in":"path","required":true,"schema":{"type":"string","title":"Application Id"}},{"name":"policy_id","in":"path","required":true,"schema":{"type":"string","title":"Policy Id"}}],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/Policy-Input"}}}},"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"$ref":"#/components/schemas/Policy-Output"}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}},"delete":{"tags":["Application"],"summary":"Delete Policy","description":"Delete a policy by ID for a specific application.","operationId":"Application-delete_policy","security":[{"HTTPBearer":[]}],"parameters":[{"name":"application_id","in":"path","required":true,"schema":{"type":"string","title":"Application Id"}},{"name":"policy_id","in":"path","required":true,"schema":{"type":"string","title":"Policy Id"}}],"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"title":"Response Application-Delete Policy"}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}},"get":{"tags":["Application"],"summary":"Get Policy","description":"Get a policy by ID for a specific application.","operationId":"Application-get_policy","security":[{"HTTPBearer":[]}],"parameters":[{"name":"application_id","in":"path","required":true,"schema":{"type":"string","title":"Application Id"}},{"name":"policy_id","in":"path","required":true,"schema":{"type":"string","title":"Policy Id"}}],"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"$ref":"#/components/schemas/Policy-Output"}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}}},"/v1/rails":{"post":{"tags":["Rails"],"summary":"Evaluate","description":"Evaluation and guardrails","operationId":"Rails-evaluate","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/EvaluationRequest"}}},"required":true},"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"$ref":"#/components/schemas/EvaluationResponse"}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}},"security":[{"HTTPBearer":[]}]}},"/v1/tests/run-scan":{"post":{"tags":["Tests","Testing"],"summary":"Run Test Scan","description":"Run a test scan for vulnerabilities.","operationId":"Tests-run_test_scan","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/ScanLLM"}}},"required":true},"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"type":"object","title":"Response Tests-Run Test Scan"}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}},"security":[{"HTTPBearer":[]}]}},"/v1/tests/list-probes":{"get":{"tags":["Tests","Testing"],"summary":"List Test Probes","description":"List all available probes for testing.","operationId":"Tests-list_test_probes","responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"items":{"type":"string"},"type":"array","title":"Response Tests-List Test Probes"}}}}}}}},"components":{"schemas":{"Application":{"properties":{"id":{"anyOf":[{"type":"string"},{"type":"null"}],"title":"Id"},"name":{"type":"string","title":"Name"},"description":{"type":"string","title":"Description"},"provider":{"anyOf":[{"type":"string"},{"type":"null"}],"title":"Provider","description":"Provider of the application","examples":["OpenAI","Anthropic","Groq"]},"model":{"anyOf":[{"type":"string"},{"type":"null"}],"title":"Model","description":"Model of the application","examples":["gpt-4o","claude-3-opus","llama-3-70b"]},"parameters":{"anyOf":[{"$ref":"#/components/schemas/ApplicationParameters"},{"type":"null"}],"title":"Parameters","description":"Parameters of the application"},"created":{"anyOf":[{"type":"integer"},{"type":"null"}],"title":"Created"},"updated":{"anyOf":[{"type":"integer"},{"type":"null"}],"title":"Updated"}},"type":"object","required":["name","description"],"title":"Application"},"ApplicationParameters":{"properties":{"system_prompt":{"anyOf":[{"type":"string"},{"type":"null"}],"title":"System Prompt","description":"System prompt of the application"},"temperature":{"anyOf":[{"type":"number"},{"type":"null"}],"title":"Temperature","description":"Temperature of the application","examples":[0.1,0.5,1.0]},"max_tokens":{"anyOf":[{"type":"integer"},{"type":"null"}],"title":"Max Tokens","description":"Max tokens of the application","examples":[100,500,1000]},"top_p":{"anyOf":[{"type":"number"},{"type":"null"}],"title":"Top P","description":"Top P of the application","examples":[0.1,0.5,1.0]},"top_k":{"anyOf":[{"type":"integer"},{"type":"null"}],"title":"Top K","description":"Top K of the application","examples":[1,5,10]}},"type":"object","title":"ApplicationParameters"},"Correction":{"properties":{"choices":{"items":{"$ref":"#/components/schemas/Messages"},"type":"array","title":"Choices"}},"type":"object","required":["choices"],"title":"Correction"},"Detector":{"properties":{"model":{"$ref":"#/components/schemas/DetectorModel"},"expected":{"$ref":"#/components/schemas/DetectorExpected"},"reference":{"anyOf":[{"type":"string"},{"items":{"type":"string"},"type":"array"},{"$ref":"#/components/schemas/PolicyTarget"},{"type":"null"}],"title":"Reference"},"threshold":{"anyOf":[{"type":"number"},{"type":"null"}],"title":"Threshold"}},"type":"object","required":["model","expected"],"title":"Detector"},"DetectorExpected":{"type":"string","enum":["block","async","pass","fail"],"title":"DetectorExpected"},"DetectorModel":{"type":"string","enum":["modern-guard-0","moderation","compliance-check","pii","regex","contains"],"title":"DetectorModel"},"EvaluationRequest":{"properties":{"application":{"type":"string","title":"Application ID","default":"your_application_id"},"messages":{"items":{"$ref":"#/components/schemas/Messages"},"type":"array","title":"Message","description":"Rails and policies will be evaluated based on the messages. Policies requires at least the user and assistant, and system message is optional.","examples":[[{"content":"tell me a joke about the president candidates","role":"user"}]]},"enabled_policies":{"items":{"type":"string"},"type":"array","title":"Enable policy by ID","description":"If provided, will override the default policies enabled on console.","default":[],"examples":[["prompt-attack-detection"]]},"policies":{"items":{"$ref":"#/components/schemas/Policy-Input"},"type":"array","title":"Set up policies","description":"","default":[],"examples":[[{"definition":"prompt attack guardrail","detectors":[{"expected":"block","model":"modern-guard-0","threshold":0.5}],"id":"prompt-attack-detection","target":"user"}]]},"override_response":{"anyOf":[{"type":"string"},{"type":"null"}],"title":"Set up a default response if any violation, has priority over the auto correction feature","examples":["I'm sorry, I can't assist with that."]},"fail_fast":{"type":"boolean","title":"Stop evaluation on first rail or policy violation","default":true,"examples":[true]}},"type":"object","required":["messages"],"title":"EvaluationRequest"},"EvaluationResponse":{"properties":{"object":{"type":"string","title":"Object","default":"eval"},"time":{"type":"number","title":"Time"},"created":{"type":"integer","title":"Created"},"status":{"type":"string","title":"Status"},"violations":{"anyOf":[{"additionalProperties":{"items":{"$ref":"#/components/schemas/Violation"},"type":"array"},"type":"object"},{"type":"null"}],"title":"Violations"},"correction":{"anyOf":[{"$ref":"#/components/schemas/Correction"},{"type":"null"}]}},"type":"object","required":["time","created","status"],"title":"EvaluationResponse"},"HTTPValidationError":{"properties":{"detail":{"items":{"$ref":"#/components/schemas/ValidationError"},"type":"array","title":"Detail"}},"type":"object","title":"HTTPValidationError"},"Messages":{"properties":{"role":{"$ref":"#/components/schemas/MessagesRole"},"content":{"type":"string","title":"Content"}},"type":"object","required":["role","content"],"title":"Messages"},"MessagesRole":{"type":"string","enum":["user","assistant","system","developer","context"],"title":"MessagesRole"},"Policy-Input":{"properties":{"id":{"type":"string","title":"Id"},"definition":{"anyOf":[{"type":"string"},{"type":"null"}],"title":"Definition"},"detectors":{"items":{"$ref":"#/components/schemas/Detector"},"type":"array","title":"Detectors"},"target":{"anyOf":[{"items":{"$ref":"#/components/schemas/PolicyTarget"},"type":"array"},{"$ref":"#/components/schemas/PolicyTarget"}],"title":"Target"},"override_response":{"anyOf":[{"type":"string"},{"type":"null"}],"title":"Override Response"}},"type":"object","required":["id","detectors","target"],"title":"Policy"},"Policy-Output":{"properties":{"id":{"type":"string","title":"Id"},"definition":{"anyOf":[{"type":"string"},{"type":"null"}],"title":"Definition"},"detectors":{"items":{"$ref":"#/components/schemas/Detector"},"type":"array","title":"Detectors"},"target":{"anyOf":[{"items":{"$ref":"#/components/schemas/PolicyTarget"},"type":"array"},{"$ref":"#/components/schemas/PolicyTarget"}],"title":"Target"},"override_response":{"anyOf":[{"type":"string"},{"type":"null"}],"title":"Override Response"}},"type":"object","required":["id","detectors","target"],"title":"Policy"},"PolicyTarget":{"type":"string","enum":["user","assistant","system","developer","context"],"title":"PolicyTarget"},"ScanLLM":{"properties":{"application":{"type":"string","title":"Application"},"probes":{"items":{"type":"string"},"type":"array","title":"atkgen.ToxType of probes to run. \nav_spam_scanning.EICARType of probes to run. \nav_spam_scanning.GTUBEType of probes to run. \nav_spam_scanning.GTphishType of probes to run. \ncontinuation.ContinueSlursReclaimedSlursMiniType of probes to run. \ndan.AntiDANType of probes to run. \ndan.AutoDANCachedType of probes to run. \ndan.ChatGPT_Developer_Mode_RANTIType of probes to run. \ndan.ChatGPT_Developer_Mode_v2Type of probes to run. \ndan.ChatGPT_Image_MarkdownType of probes to run. \ndan.DAN_JailbreakType of probes to run. \ndan.DUDEType of probes to run. \ndan.DanInTheWildMiniType of probes to run. \ndan.Dan_10_0Type of probes to run. \ndan.Dan_11_0Type of probes to run. \ndan.Dan_6_0Type of probes to run. \ndan.Dan_6_2Type of probes to run. \ndan.Dan_7_0Type of probes to run. \ndan.Dan_8_0Type of probes to run. \ndan.Dan_9_0Type of probes to run. \ndan.STANType of probes to run. \ndonotanswer.DiscriminationExclusionToxicityHatefulOffensiveType of probes to run. \ndonotanswer.HumanChatboxType of probes to run. \ndonotanswer.InformationHazardType of probes to run. \ndonotanswer.MaliciousUsesType of probes to run. \ndonotanswer.MisinformationHarmsType of probes to run. \nencoding.InjectAscii85Type of probes to run. \nencoding.InjectBase16Type of probes to run. \nencoding.InjectBase2048Type of probes to run. \nencoding.InjectBase32Type of probes to run. \nencoding.InjectBase64Type of probes to run. \nencoding.InjectBrailleType of probes to run. \nencoding.InjectEcojiType of probes to run. \nencoding.InjectHexType of probes to run. \nencoding.InjectMorseType of probes to run. \nencoding.InjectNatoType of probes to run. \nencoding.InjectROT13Type of probes to run. \nencoding.InjectUUType of probes to run. \nencoding.InjectZalgoType of probes to run. \nfileformats.HF_FilesType of probes to run. \nglitch.Glitch100Type of probes to run. \ngoodside.DavidjlType of probes to run. \ngoodside.TagType of probes to run. \ngoodside.ThreatenJSONType of probes to run. \ngoodside.WhoIsRileyType of probes to run. \ngrandma.SlursType of probes to run. \ngrandma.SubstancesType of probes to run. \ngrandma.Win10Type of probes to run. \ngrandma.Win11Type of probes to run. \nlatentinjection.LatentInjectionFactSnippetEiffelType of probes to run. \nlatentinjection.LatentInjectionReportType of probes to run. \nlatentinjection.LatentInjectionResumeType of probes to run. \nlatentinjection.LatentInjectionTranslationEnFrType of probes to run. \nlatentinjection.LatentInjectionTranslationEnZhType of probes to run. \nleakreplay.GuardianClozeType of probes to run. \nleakreplay.GuardianCompleteType of probes to run. \nleakreplay.LiteratureCloze80Type of probes to run. \nleakreplay.LiteratureComplete80Type of probes to run. \nleakreplay.NYTClozeType of probes to run. \nleakreplay.NYTCompleteType of probes to run. \nleakreplay.PotterClozeType of probes to run. \nleakreplay.PotterCompleteType of probes to run. \nlmrc.AnthropomorphisationType of probes to run. \nlmrc.BullyingType of probes to run. \nlmrc.DeadnamingType of probes to run. \nlmrc.ProfanityType of probes to run. \nlmrc.QuackMedicineType of probes to run. \nlmrc.SexualContentType of probes to run. \nlmrc.SexualisationType of probes to run. \nlmrc.SlurUsageType of probes to run. \nmalwaregen.EvasionType of probes to run. \nmalwaregen.PayloadType of probes to run. \nmalwaregen.SubFunctionsType of probes to run. \nmalwaregen.TopLevelType of probes to run. \nmisleading.FalseAssertion50Type of probes to run. \npackagehallucination.JavaScriptType of probes to run. \npackagehallucination.PythonType of probes to run. \npackagehallucination.RubyType of probes to run. \npackagehallucination.RustType of probes to run. \npromptinject.HijackHateHumansMiniType of probes to run. \npromptinject.HijackKillHumansMiniType of probes to run. \npromptinject.HijackLongPromptMiniType of probes to run. \nrealtoxicityprompts.RTPBlankType of probes to run. \nrealtoxicityprompts.RTPFlirtationType of probes to run. \nrealtoxicityprompts.RTPIdentity_AttackType of probes to run. \nrealtoxicityprompts.RTPInsultType of probes to run. \nrealtoxicityprompts.RTPProfanityType of probes to run. \nrealtoxicityprompts.RTPSevere_ToxicityType of probes to run. \nrealtoxicityprompts.RTPSexually_ExplicitType of probes to run. \nrealtoxicityprompts.RTPThreatType of probes to run. \nreplay.RepeatType of probes to run. \nsnowball.GraphConnectivityMiniType of probes to run. \nsnowball.PrimesMiniType of probes to run. \nsnowball.SenatorsMiniType of probes to run. \nsuffix.GCGCachedType of probes to run. \ntap.TAPCachedType of probes to run. \ntopic.WordnetControversialType of probes to run. \nxss.MarkdownImageExfilType of probes to run. \nencodingType of probes to run. \ngrandmaType of probes to run. \ndanType of probes to run. \nlmrcType of probes to run. \ntapType of probes to run. \nrealtoxicitypromptsType of probes to run. \ndonotanswerType of probes to run. \nfileformatsType of probes to run. \npackagehallucinationType of probes to run. \ncontinuationType of probes to run. \npromptinjectType of probes to run. \nsuffixType of probes to run. \natkgenType of probes to run. \nmalwaregenType of probes to run. \nmisleadingType of probes to run. \nlatentinjectionType of probes to run. \nvisual_jailbreakType of probes to run. \ntopicType of probes to run. \nleakreplayType of probes to run. \nreplayType of probes to run. \ngoodsideType of probes to run. \nglitchType of probes to run. \nav_spam_scanningType of probes to run. \nxssType of probes to run. \ntestType of probes to run. \nsnowball","description":"List of probes to run","default":["promptinject"],"examples":[["promptinject"]]}},"type":"object","required":["application"],"title":"ScanLLM"},"ValidationError":{"properties":{"loc":{"items":{"anyOf":[{"type":"string"},{"type":"integer"}]},"type":"array","title":"Location"},"msg":{"type":"string","title":"Message"},"type":{"type":"string","title":"Error Type"}},"type":"object","required":["loc","msg","type"],"title":"ValidationError"},"Violation":{"properties":{"detector_model":{"$ref":"#/components/schemas/DetectorModel"},"expected":{"$ref":"#/components/schemas/DetectorExpected"},"reference":{"anyOf":[{"type":"string"},{"items":{},"type":"array"},{"$ref":"#/components/schemas/PolicyTarget"},{"items":{"$ref":"#/components/schemas/PolicyTarget"},"type":"array"},{"type":"null"}],"title":"Reference"},"threshold":{"anyOf":[{"type":"number"},{"type":"null"}],"title":"Threshold"},"score":{"anyOf":[{"type":"number"},{"type":"null"}],"title":"Score"},"result":{"anyOf":[{"type":"string"},{"items":{},"type":"array"},{"type":"object"},{"type":"null"}],"title":"Result"}},"type":"object","required":["detector_model","expected"],"title":"Violation"}},"securitySchemes":{"HTTPBearer":{"type":"http","scheme":"bearer"}}},"tags":[{"name":"Application","description":"API endpoints for managing generative AI applications and policies (guardrails)."},{"name":"Evaluate","description":"API endpoints for evaluating guardrails."},{"name":"Red Teaming","description":"API endpoints for managing LLM red teaming."}]}
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "GuardionAI",
+        "summary": "Securing your GenAI applications, AI agents, and call centers with real-time protection. Mitigate the risks of AI adoption and unlock its full potential.",
+        "description": "[For detailed documentation, please refer to https://docs.guardion.ai](https://docs.guardion.ai/)",
+        "termsOfService": "https://guardion.ai/terms-of-service",
+        "contact": {
+            "name": "Rafael Sandroni",
+            "email": "rafael@guardion.ai"
+        },
+        "version": "0.1.3"
+    },
+    "servers": [
+        {
+            "url": "https://api.guardion.ai"
+        }
+    ],
+    "security": [
+        {
+            "bearerAuth": []
+        }
+    ],
+    "paths": {
+        "/v1/applications": {
+            "post": {
+                "tags": [
+                    "Application"
+                ],
+                "summary": "Create",
+                "description": "Create a new application.",
+                "operationId": "Application-create",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Application"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Application"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            }
+        },
+        "/v1/applications/{application_id}": {
+            "delete": {
+                "tags": [
+                    "Application"
+                ],
+                "summary": "Delete Application",
+                "description": "Delete an application by ID.",
+                "operationId": "Application-delete_application",
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "application_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Application Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "title": "Response Application-Delete Application"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/applications/{application_id}/policies": {
+            "post": {
+                "tags": [
+                    "Application"
+                ],
+                "summary": "Create Policy",
+                "description": "Create a new policy for a specific application.",
+                "operationId": "Application-create_policy",
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "application_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Application Id"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Policy-Input"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Policy-Output"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Application"
+                ],
+                "summary": "List Policies",
+                "description": "List all policies for a specific application.",
+                "operationId": "Application-list_policies",
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "application_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Application Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Policy-Output"
+                                    },
+                                    "title": "Response Application-List Policies"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/applications/{application_id}/policies/{policy_id}": {
+            "put": {
+                "tags": [
+                    "Application"
+                ],
+                "summary": "Update Policy",
+                "description": "Update an existing policy for a specific application.",
+                "operationId": "Application-update_policy",
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "application_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Application Id"
+                        }
+                    },
+                    {
+                        "name": "policy_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Policy Id"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Policy-Input"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Policy-Output"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Application"
+                ],
+                "summary": "Delete Policy",
+                "description": "Delete a policy by ID for a specific application.",
+                "operationId": "Application-delete_policy",
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "application_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Application Id"
+                        }
+                    },
+                    {
+                        "name": "policy_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Policy Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "title": "Response Application-Delete Policy"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Application"
+                ],
+                "summary": "Get Policy",
+                "description": "Get a policy by ID for a specific application.",
+                "operationId": "Application-get_policy",
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "application_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Application Id"
+                        }
+                    },
+                    {
+                        "name": "policy_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Policy Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Policy-Output"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/rails": {
+            "post": {
+                "tags": [
+                    "Rails"
+                ],
+                "summary": "Evaluate",
+                "description": "Evaluation and guardrails",
+                "operationId": "Rails-evaluate",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/EvaluationRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/EvaluationResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            }
+        },
+        "/v1/tests/run-scan": {
+            "post": {
+                "tags": [
+                    "Tests",
+                    "Testing"
+                ],
+                "summary": "Run Test Scan",
+                "description": "Run a test scan for vulnerabilities.",
+                "operationId": "Tests-run_test_scan",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ScanLLM"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "title": "Response Tests-Run Test Scan"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            }
+        },
+        "/v1/tests/list-probes": {
+            "get": {
+                "tags": [
+                    "Tests",
+                    "Testing"
+                ],
+                "summary": "List Test Probes",
+                "description": "List all available probes for testing.",
+                "operationId": "Tests-list_test_probes",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "type": "string"
+                                    },
+                                    "type": "array",
+                                    "title": "Response Tests-List Test Probes"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Application": {
+                "properties": {
+                    "id": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Id"
+                    },
+                    "name": {
+                        "type": "string",
+                        "title": "Name"
+                    },
+                    "description": {
+                        "type": "string",
+                        "title": "Description"
+                    },
+                    "provider": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Provider",
+                        "description": "Provider of the application",
+                        "examples": [
+                            "OpenAI",
+                            "Anthropic",
+                            "Groq"
+                        ]
+                    },
+                    "model": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Model",
+                        "description": "Model of the application",
+                        "examples": [
+                            "gpt-4o",
+                            "claude-3-opus",
+                            "llama-3-70b"
+                        ]
+                    },
+                    "parameters": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/components/schemas/ApplicationParameters"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Parameters",
+                        "description": "Parameters of the application"
+                    },
+                    "created": {
+                        "anyOf": [
+                            {
+                                "type": "integer"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Created"
+                    },
+                    "updated": {
+                        "anyOf": [
+                            {
+                                "type": "integer"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Updated"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "name",
+                    "description"
+                ],
+                "title": "Application"
+            },
+            "ApplicationParameters": {
+                "properties": {
+                    "system_prompt": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "System Prompt",
+                        "description": "System prompt of the application"
+                    },
+                    "temperature": {
+                        "anyOf": [
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Temperature",
+                        "description": "Temperature of the application",
+                        "examples": [
+                            0.1,
+                            0.5,
+                            1
+                        ]
+                    },
+                    "max_tokens": {
+                        "anyOf": [
+                            {
+                                "type": "integer"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Max Tokens",
+                        "description": "Max tokens of the application",
+                        "examples": [
+                            100,
+                            500,
+                            1000
+                        ]
+                    },
+                    "top_p": {
+                        "anyOf": [
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Top P",
+                        "description": "Top P of the application",
+                        "examples": [
+                            0.1,
+                            0.5,
+                            1
+                        ]
+                    },
+                    "top_k": {
+                        "anyOf": [
+                            {
+                                "type": "integer"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Top K",
+                        "description": "Top K of the application",
+                        "examples": [
+                            1,
+                            5,
+                            10
+                        ]
+                    }
+                },
+                "type": "object",
+                "title": "ApplicationParameters"
+            },
+            "Correction": {
+                "properties": {
+                    "choices": {
+                        "items": {
+                            "$ref": "#/components/schemas/Messages"
+                        },
+                        "type": "array",
+                        "title": "Choices"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "choices"
+                ],
+                "title": "Correction"
+            },
+            "Detector": {
+                "properties": {
+                    "model": {
+                        "$ref": "#/components/schemas/DetectorModel"
+                    },
+                    "expected": {
+                        "$ref": "#/components/schemas/DetectorExpected"
+                    },
+                    "reference": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array"
+                            },
+                            {
+                                "$ref": "#/components/schemas/PolicyTarget"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Reference"
+                    },
+                    "threshold": {
+                        "anyOf": [
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Threshold"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "model",
+                    "expected"
+                ],
+                "title": "Detector"
+            },
+            "DetectorExpected": {
+                "type": "string",
+                "enum": [
+                    "block",
+                    "async",
+                    "pass",
+                    "fail"
+                ],
+                "title": "DetectorExpected"
+            },
+            "DetectorModel": {
+                "type": "string",
+                "enum": [
+                    "modern-guard-0",
+                    "moderation",
+                    "compliance-check",
+                    "pii",
+                    "regex",
+                    "contains"
+                ],
+                "title": "DetectorModel"
+            },
+            "EvaluationRequest": {
+                "properties": {
+                    "application": {
+                        "type": "string",
+                        "title": "Application ID",
+                        "default": "your_application_id"
+                    },
+                    "messages": {
+                        "items": {
+                            "$ref": "#/components/schemas/Messages"
+                        },
+                        "type": "array",
+                        "title": "Message",
+                        "description": "Rails and policies will be evaluated based on the messages. Policies requires at least the user and assistant, and system message is optional.",
+                        "examples": [
+                            [
+                                {
+                                    "content": "tell me a joke about the president candidates",
+                                    "role": "user"
+                                }
+                            ]
+                        ]
+                    },
+                    "enabled_policies": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array",
+                        "title": "Enable policy by ID",
+                        "description": "If provided, will override the default policies enabled on console.",
+                        "default": [],
+                        "examples": [
+                            [
+                                "prompt-attack-detection"
+                            ]
+                        ]
+                    },
+                    "policies": {
+                        "items": {
+                            "$ref": "#/components/schemas/Policy-Input"
+                        },
+                        "type": "array",
+                        "title": "Set up policies",
+                        "description": "",
+                        "default": [],
+                        "examples": [
+                            [
+                                {
+                                    "definition": "prompt attack guardrail",
+                                    "detectors": [
+                                        {
+                                            "expected": "block",
+                                            "model": "modern-guard-0",
+                                            "threshold": 0.5
+                                        }
+                                    ],
+                                    "id": "prompt-attack-detection",
+                                    "target": "user"
+                                }
+                            ]
+                        ]
+                    },
+                    "override_response": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Set up a default response if any violation, has priority over the auto correction feature",
+                        "examples": [
+                            "I'm sorry, I can't assist with that."
+                        ]
+                    },
+                    "fail_fast": {
+                        "type": "boolean",
+                        "title": "Stop evaluation on first rail or policy violation",
+                        "default": true,
+                        "examples": [
+                            true
+                        ]
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "messages"
+                ],
+                "title": "EvaluationRequest"
+            },
+            "EvaluationResponse": {
+                "properties": {
+                    "object": {
+                        "type": "string",
+                        "title": "Object",
+                        "default": "eval"
+                    },
+                    "time": {
+                        "type": "number",
+                        "title": "Time"
+                    },
+                    "created": {
+                        "type": "integer",
+                        "title": "Created"
+                    },
+                    "status": {
+                        "type": "string",
+                        "title": "Status"
+                    },
+                    "violations": {
+                        "anyOf": [
+                            {
+                                "additionalProperties": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/Violation"
+                                    },
+                                    "type": "array"
+                                },
+                                "type": "object"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Violations"
+                    },
+                    "correction": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/components/schemas/Correction"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "time",
+                    "created",
+                    "status"
+                ],
+                "title": "EvaluationResponse"
+            },
+            "HTTPValidationError": {
+                "properties": {
+                    "detail": {
+                        "items": {
+                            "$ref": "#/components/schemas/ValidationError"
+                        },
+                        "type": "array",
+                        "title": "Detail"
+                    }
+                },
+                "type": "object",
+                "title": "HTTPValidationError"
+            },
+            "Messages": {
+                "properties": {
+                    "role": {
+                        "$ref": "#/components/schemas/MessagesRole"
+                    },
+                    "content": {
+                        "type": "string",
+                        "title": "Content"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "role",
+                    "content"
+                ],
+                "title": "Messages"
+            },
+            "MessagesRole": {
+                "type": "string",
+                "enum": [
+                    "user",
+                    "assistant",
+                    "system",
+                    "developer",
+                    "context"
+                ],
+                "title": "MessagesRole"
+            },
+            "Policy-Input": {
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "title": "Id"
+                    },
+                    "definition": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Definition"
+                    },
+                    "detectors": {
+                        "items": {
+                            "$ref": "#/components/schemas/Detector"
+                        },
+                        "type": "array",
+                        "title": "Detectors"
+                    },
+                    "target": {
+                        "anyOf": [
+                            {
+                                "items": {
+                                    "$ref": "#/components/schemas/PolicyTarget"
+                                },
+                                "type": "array"
+                            },
+                            {
+                                "$ref": "#/components/schemas/PolicyTarget"
+                            }
+                        ],
+                        "title": "Target"
+                    },
+                    "override_response": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Override Response"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id",
+                    "detectors",
+                    "target"
+                ],
+                "title": "Policy"
+            },
+            "Policy-Output": {
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "title": "Id"
+                    },
+                    "definition": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Definition"
+                    },
+                    "detectors": {
+                        "items": {
+                            "$ref": "#/components/schemas/Detector"
+                        },
+                        "type": "array",
+                        "title": "Detectors"
+                    },
+                    "target": {
+                        "anyOf": [
+                            {
+                                "items": {
+                                    "$ref": "#/components/schemas/PolicyTarget"
+                                },
+                                "type": "array"
+                            },
+                            {
+                                "$ref": "#/components/schemas/PolicyTarget"
+                            }
+                        ],
+                        "title": "Target"
+                    },
+                    "override_response": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Override Response"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id",
+                    "detectors",
+                    "target"
+                ],
+                "title": "Policy"
+            },
+            "PolicyTarget": {
+                "type": "string",
+                "enum": [
+                    "user",
+                    "assistant",
+                    "system",
+                    "developer",
+                    "context"
+                ],
+                "title": "PolicyTarget"
+            },
+            "ScanLLM": {
+                "properties": {
+                    "application": {
+                        "type": "string",
+                        "title": "Application"
+                    },
+                    "probes": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array",
+                        "title": "atkgen.ToxType of probes to run. \nav_spam_scanning.EICARType of probes to run. \nav_spam_scanning.GTUBEType of probes to run. \nav_spam_scanning.GTphishType of probes to run. \ncontinuation.ContinueSlursReclaimedSlursMiniType of probes to run. \ndan.AntiDANType of probes to run. \ndan.AutoDANCachedType of probes to run. \ndan.ChatGPT_Developer_Mode_RANTIType of probes to run. \ndan.ChatGPT_Developer_Mode_v2Type of probes to run. \ndan.ChatGPT_Image_MarkdownType of probes to run. \ndan.DAN_JailbreakType of probes to run. \ndan.DUDEType of probes to run. \ndan.DanInTheWildMiniType of probes to run. \ndan.Dan_10_0Type of probes to run. \ndan.Dan_11_0Type of probes to run. \ndan.Dan_6_0Type of probes to run. \ndan.Dan_6_2Type of probes to run. \ndan.Dan_7_0Type of probes to run. \ndan.Dan_8_0Type of probes to run. \ndan.Dan_9_0Type of probes to run. \ndan.STANType of probes to run. \ndonotanswer.DiscriminationExclusionToxicityHatefulOffensiveType of probes to run. \ndonotanswer.HumanChatboxType of probes to run. \ndonotanswer.InformationHazardType of probes to run. \ndonotanswer.MaliciousUsesType of probes to run. \ndonotanswer.MisinformationHarmsType of probes to run. \nencoding.InjectAscii85Type of probes to run. \nencoding.InjectBase16Type of probes to run. \nencoding.InjectBase2048Type of probes to run. \nencoding.InjectBase32Type of probes to run. \nencoding.InjectBase64Type of probes to run. \nencoding.InjectBrailleType of probes to run. \nencoding.InjectEcojiType of probes to run. \nencoding.InjectHexType of probes to run. \nencoding.InjectMorseType of probes to run. \nencoding.InjectNatoType of probes to run. \nencoding.InjectROT13Type of probes to run. \nencoding.InjectUUType of probes to run. \nencoding.InjectZalgoType of probes to run. \nfileformats.HF_FilesType of probes to run. \nglitch.Glitch100Type of probes to run. \ngoodside.DavidjlType of probes to run. \ngoodside.TagType of probes to run. \ngoodside.ThreatenJSONType of probes to run. \ngoodside.WhoIsRileyType of probes to run. \ngrandma.SlursType of probes to run. \ngrandma.SubstancesType of probes to run. \ngrandma.Win10Type of probes to run. \ngrandma.Win11Type of probes to run. \nlatentinjection.LatentInjectionFactSnippetEiffelType of probes to run. \nlatentinjection.LatentInjectionReportType of probes to run. \nlatentinjection.LatentInjectionResumeType of probes to run. \nlatentinjection.LatentInjectionTranslationEnFrType of probes to run. \nlatentinjection.LatentInjectionTranslationEnZhType of probes to run. \nleakreplay.GuardianClozeType of probes to run. \nleakreplay.GuardianCompleteType of probes to run. \nleakreplay.LiteratureCloze80Type of probes to run. \nleakreplay.LiteratureComplete80Type of probes to run. \nleakreplay.NYTClozeType of probes to run. \nleakreplay.NYTCompleteType of probes to run. \nleakreplay.PotterClozeType of probes to run. \nleakreplay.PotterCompleteType of probes to run. \nlmrc.AnthropomorphisationType of probes to run. \nlmrc.BullyingType of probes to run. \nlmrc.DeadnamingType of probes to run. \nlmrc.ProfanityType of probes to run. \nlmrc.QuackMedicineType of probes to run. \nlmrc.SexualContentType of probes to run. \nlmrc.SexualisationType of probes to run. \nlmrc.SlurUsageType of probes to run. \nmalwaregen.EvasionType of probes to run. \nmalwaregen.PayloadType of probes to run. \nmalwaregen.SubFunctionsType of probes to run. \nmalwaregen.TopLevelType of probes to run. \nmisleading.FalseAssertion50Type of probes to run. \npackagehallucination.JavaScriptType of probes to run. \npackagehallucination.PythonType of probes to run. \npackagehallucination.RubyType of probes to run. \npackagehallucination.RustType of probes to run. \npromptinject.HijackHateHumansMiniType of probes to run. \npromptinject.HijackKillHumansMiniType of probes to run. \npromptinject.HijackLongPromptMiniType of probes to run. \nrealtoxicityprompts.RTPBlankType of probes to run. \nrealtoxicityprompts.RTPFlirtationType of probes to run. \nrealtoxicityprompts.RTPIdentity_AttackType of probes to run. \nrealtoxicityprompts.RTPInsultType of probes to run. \nrealtoxicityprompts.RTPProfanityType of probes to run. \nrealtoxicityprompts.RTPSevere_ToxicityType of probes to run. \nrealtoxicityprompts.RTPSexually_ExplicitType of probes to run. \nrealtoxicityprompts.RTPThreatType of probes to run. \nreplay.RepeatType of probes to run. \nsnowball.GraphConnectivityMiniType of probes to run. \nsnowball.PrimesMiniType of probes to run. \nsnowball.SenatorsMiniType of probes to run. \nsuffix.GCGCachedType of probes to run. \ntap.TAPCachedType of probes to run. \ntopic.WordnetControversialType of probes to run. \nxss.MarkdownImageExfilType of probes to run. \nencodingType of probes to run. \ngrandmaType of probes to run. \ndanType of probes to run. \nlmrcType of probes to run. \ntapType of probes to run. \nrealtoxicitypromptsType of probes to run. \ndonotanswerType of probes to run. \nfileformatsType of probes to run. \npackagehallucinationType of probes to run. \ncontinuationType of probes to run. \npromptinjectType of probes to run. \nsuffixType of probes to run. \natkgenType of probes to run. \nmalwaregenType of probes to run. \nmisleadingType of probes to run. \nlatentinjectionType of probes to run. \nvisual_jailbreakType of probes to run. \ntopicType of probes to run. \nleakreplayType of probes to run. \nreplayType of probes to run. \ngoodsideType of probes to run. \nglitchType of probes to run. \nav_spam_scanningType of probes to run. \nxssType of probes to run. \ntestType of probes to run. \nsnowball",
+                        "description": "List of probes to run",
+                        "default": [
+                            "promptinject"
+                        ],
+                        "examples": [
+                            [
+                                "promptinject"
+                            ]
+                        ]
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "application"
+                ],
+                "title": "ScanLLM"
+            },
+            "ValidationError": {
+                "properties": {
+                    "loc": {
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        "type": "array",
+                        "title": "Location"
+                    },
+                    "msg": {
+                        "type": "string",
+                        "title": "Message"
+                    },
+                    "type": {
+                        "type": "string",
+                        "title": "Error Type"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "loc",
+                    "msg",
+                    "type"
+                ],
+                "title": "ValidationError"
+            },
+            "Violation": {
+                "properties": {
+                    "detector_model": {
+                        "$ref": "#/components/schemas/DetectorModel"
+                    },
+                    "expected": {
+                        "$ref": "#/components/schemas/DetectorExpected"
+                    },
+                    "reference": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "items": {},
+                                "type": "array"
+                            },
+                            {
+                                "$ref": "#/components/schemas/PolicyTarget"
+                            },
+                            {
+                                "items": {
+                                    "$ref": "#/components/schemas/PolicyTarget"
+                                },
+                                "type": "array"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Reference"
+                    },
+                    "threshold": {
+                        "anyOf": [
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Threshold"
+                    },
+                    "score": {
+                        "anyOf": [
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Score"
+                    },
+                    "result": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "items": {},
+                                "type": "array"
+                            },
+                            {
+                                "type": "object"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Result"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "detector_model",
+                    "expected"
+                ],
+                "title": "Violation"
+            }
+        },
+        "securitySchemes": {
+            "HTTPBearer": {
+                "type": "http",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Application",
+            "description": "API endpoints for managing generative AI applications and policies (guardrails)."
+        },
+        {
+            "name": "Evaluate",
+            "description": "API endpoints for evaluating guardrails."
+        },
+        {
+            "name": "Red Teaming",
+            "description": "API endpoints for managing LLM red teaming."
+        }
+    ]
+}

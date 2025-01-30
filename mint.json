@@ -1,36 +1,36 @@
 {
-  "$schema": "https://mintlify.com/schema.json",
-  "name": "GuardionAI",
-  "logo": {
-    "light": "/logo.png",
-    "dark": "/logo.png"
-  },
-  "favicon": "/favicon.png",
-  "colors": {
-    "primary": "#3482F6",
-    "light": "#3482F6",
-    "dark": "#3482F6",
-    "anchors": {
-      "from": "#3482F6",
-      "to": "#3482F6"
-    }
-  },
-  "topbarLinks": [
-    {
-      "name": "Support",
-      "url": "mailto:help@guardion.ai"
-    }
-  ],
-  "topbarCtaButton": {
-    "name": "Sign Up",
-    "url": "https://guardion.ai"
-  },
-  "navigation": [
-    {
-      "group": "Guardion endpoints",
-      "pages": [
-        "api"
-      ]
+    "$schema": "https://mintlify.com/schema.json",
+    "name": "GuardionAI",
+    "logo": {
+        "light": "/logo.png",
+        "dark": "/logo.png"
     },
-  ],
+    "favicon": "/favicon.png",
+    "colors": {
+        "primary": "#3482F6",
+        "light": "#3482F6",
+        "dark": "#3482F6",
+        "anchors": {
+            "from": "#3482F6",
+            "to": "#3482F6"
+        }
+    },
+    "topbarLinks": [
+        {
+            "name": "Support",
+            "url": "mailto:help@guardion.ai"
+        }
+    ],
+    "topbarCtaButton": {
+        "name": "Sign Up",
+        "url": "https://guardion.ai"
+    },
+    "navigation": [
+        {
+            "group": "Guardion endpoints",
+            "pages": [
+                "api"
+            ]
+        }
+    ]
 }

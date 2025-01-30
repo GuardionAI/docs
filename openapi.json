@@ -407,9 +407,9 @@
                 "tags": [
                     "Rails"
                 ],
-                "summary": "Evaluate",
-                "description": "Evaluation and guardrails",
-                "operationId": "Rails-evaluate",
+                "summary": "Rails",
+                "description": "Realtime guardrails",
+                "operationId": "rails-eval",
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -778,21 +778,14 @@
                 "type": "string",
                 "enum": [
                     "block",
-                    "async",
-                    "pass",
-                    "fail"
+                    "async"
                 ],
                 "title": "DetectorExpected"
             },
             "DetectorModel": {
                 "type": "string",
                 "enum": [
-                    "modern-guard-0",
-                    "moderation",
-                    "compliance-check",
-                    "pii",
-                    "regex",
-                    "contains"
+                    "modern-guard-0"
                 ],
                 "title": "DetectorModel"
             },

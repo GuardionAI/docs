@@ -30,7 +30,8 @@
             "group": "Guardion API endpoints",
             "pages": [
                 "guardion-api",
-                "openai-compatible"
+                "openai-compatible",
+                "policy-api"
             ]
         }
     ]

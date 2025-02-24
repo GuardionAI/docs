@@ -29,7 +29,8 @@
         {
             "group": "Guardion API endpoints",
             "pages": [
-                "eval"
+                "guardion-api",
+                "openai-compatible"
             ]
         }
     ]

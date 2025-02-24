@@ -2,8 +2,8 @@
     "$schema": "https://mintlify.com/schema.json",
     "name": "GuardionAI",
     "logo": {
-        "light": "/logo.png",
-        "dark": "/logo.png"
+        "light": "/GuardionAI.png",
+        "dark": "/GuardionAI.png"
     },
     "favicon": "/favicon.png",
     "colors": {
@@ -18,7 +18,7 @@
     "topbarLinks": [
         {
             "name": "Support",
-            "url": "mailto:help@guardion.ai"
+            "url": "mailto:founders@guardion.ai"
         }
     ],
     "topbarCtaButton": {
@@ -27,9 +27,9 @@
     },
     "navigation": [
         {
-            "group": "Guardion endpoints",
+            "group": "Guardion API endpoints",
             "pages": [
-                "api"
+                "Guardion Guardrails"
             ]
         }
     ]

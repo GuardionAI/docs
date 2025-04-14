@@ -218,9 +218,6 @@
                     "result": {
                         "anyOf": [
                             {
-                                "type": "string"
-                            },
-                            {
                                 "items": {},
                                 "type": "array"
                             },

@@ -2,10 +2,10 @@
     "$schema": "https://mintlify.com/schema.json",
     "name": "GuardionAI",
     "logo": {
-        "light": "/GuardionAI.png",
-        "dark": "/GuardionAI.png"
+        "light": "/logo.svg",
+        "dark": "/logo.svg"
     },
-    "favicon": "/favicon.png",
+    "favicon": "/favicon.ico",
     "colors": {
         "primary": "#3482F6",
         "light": "#3482F6",

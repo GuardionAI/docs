@@ -17,6 +17,12 @@
       "description": "Production API server"
     }
   ],
+  "securitySchemes": {
+  "HTTPBearer": {
+    "type": "http",
+    "scheme": "bearer"
+  }
+},
   "tags": [
     {
       "name": "Guard",

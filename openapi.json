@@ -125,13 +125,13 @@
             ]
          }
       },
-      "/v1/eval":{
+      "/v1/guard":{
          "post":{
             "tags":[
-               "Evaluate"
+               "Guard"
             ],
-            "summary":"Evaluate",
-            "description":"Evaluation and guardrails",
+            "summary":"Guard",
+            "description":"Real-time Guardrails",
             "operationId":"Evaluate-evaluate",
             "requestBody":{
                "content":{
@@ -177,7 +177,7 @@
       "/v1/chat/completions":{
          "post":{
             "tags":[
-               "Evaluate"
+               "Guard"
             ],
             "summary":"Evaluate",
             "description":"Evaluation and guardrails",

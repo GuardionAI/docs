@@ -29,7 +29,7 @@
         {
             "group": "Guardion API endpoints",
             "pages": [
-                "guardion-api",
+                "guard-api",
                 "openai-compatible",
                 "policy-api"
             ]

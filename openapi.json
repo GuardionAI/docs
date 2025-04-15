@@ -456,16 +456,6 @@
                         ],
                         "title": "Breakdown"
                     },
-                    "usage": {
-                        "anyOf": [
-                            {
-                                "$ref": "#/components/schemas/TokenUsage"
-                            },
-                            {
-                                "type": "null"
-                            }
-                        ]
-                    },
                     "correction": {
                         "anyOf": [
                             {
@@ -624,19 +614,6 @@
                     "context"
                 ],
                 "title": "Target"
-            },
-            "TokenUsage": {
-                "properties": {
-                    "total_tokens": {
-                        "type": "integer",
-                        "title": "Total Tokens"
-                    }
-                },
-                "type": "object",
-                "required": [
-                    "total_tokens"
-                ],
-                "title": "TokenUsage"
             },
             "ValidationError": {
                 "properties": {

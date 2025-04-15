@@ -26,6 +26,12 @@
         "url": "https://guardion.ai"
     },
     "navigation": [
+      {
+        "group": "Getting Started",
+        "pages": [
+          "quickstart"
+        ]
+      },
         {
             "group": "Guardion API endpoints",
             "pages": [

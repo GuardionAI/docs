@@ -23,6 +23,37 @@ Use our interactive Colab notebook experiment:
 
 ![OpenAI Agents SDK + GuardionAI Integration](/integrations/openai-agents-colab.png)
 
+#### Example output in the Google Colab Example:
+```
+    ❌ {
+        "object": "eval",
+        "time": 2.0, // 2 milliseconds due to cache
+        "created": 1745525108,
+        "flagged": true, // threat flagged
+        "breakdown": [
+            {
+                "policy_id": "prompt-defense-default", // or your custom policy
+                "detector": "modern-guard",
+                "detected": true,
+                "threshold": 0.8,
+                "score": 0.9129506945610046,
+                "result": [
+                    {
+                        "label": "SAFE",
+                        "score": 0.08704936504364014
+                    },
+                    {
+                        "label": "INJECTION",
+                        "score": 0.9129506945610046
+                    }
+                ]
+            }
+        ]
+    }
+    ❌ Guardion flagged this input as unsafe.
+
+```
+
 ---
 
 ## What You’ll Need

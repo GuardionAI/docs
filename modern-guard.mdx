@@ -46,25 +46,30 @@ The benchmark methodology includes:
 
 
 ### Overall F1-Scores
-| Model (HuggingFace repositories)          | F1-score |
-|-------------------------------------------|----------|
-| GuardionAI/ModernGuard                    | **0.986**|
-| Lakera Guard                              | 0.804    |
-| deepset/deberta-v3-base-injection         | 0.787    |
-| protectai/deberta-v3-base-prompt-injection| 0.534    |
-| meta-llama/Prompt-Guard-86M               | 0.484    |
-| jackhhao/jailbreak-classifier             | 0.100    |
+| Model                                     | Overall F1-Score |
+|-------------------------------------------|--------------|
+| **guardion/Modern-Guard-v1**              | **0.9718**   |
+| Lakera Guard                              | 0.8600       |
+| protectai/deberta-v3-base-prompt-injection-v2 | 0.6008   |
+| deepset/deberta-v3-base-injection         | 0.5725       |
+| meta-llama/Prompt-Guard-86M               | 0.4555       |
+| jackhhao/jailbreak-classifier             | 0.5000       |
 
+*We missed any other prompt injection detector model or solution? Please, let us know, and we can add the evaluation as well.*
 
 ### Threat Category Coverage
-| Threat Category             | ModernGuard | Best Peer Model |
-|----------------------------|--------------|-----------------|
-| Encoding & Obfuscation     | 0.967        | 0.803           |
-| Prompt Injection & Override| 0.991        | 0.854           |
-| Jailbreaking Techniques    | 0.980        | 0.904           |
-| Exfiltration & Leakage     | 0.993        | 0.905           |
-| Malware & Code Injection   | 0.992        | 0.887           |
-| Adversarial Testing        | 0.985        | 0.881           |
+| Threat Category             | guardion/Modern-Guard-1 | meta-llama/Prompt-Guard-86M | protectai/deberta-v3-base-prompt-injection-v2 | deepset/deberta-v3-base-injection | jackhhao/jailbreak-classifier | lakera-guard |
+|----------------------------|--------------|-----------------|-----------------|-----------------|-----------------|-----------------|
+| Encoding                   | 0.972667     | 0.567333        | 0.530222        | 0.889556        | 0.000000        | 0.677778        |
+| Prompt Injection           | 0.968602     | 0.308043        | 0.755299        | 0.899980        | 0.142857        | 0.878889        |
+| Jailbreaking               | 0.981274     | 0.621297        | 0.360996        | 0.764824        | 0.000000        | 0.738333        |
+| Exfiltration & Leakage     | 0.999667     | 0.284000        | 0.587730        | 0.981667        | 0.000000        | 0.850000        |
+| Evasion & Obfuscation      | 0.994659     | 0.583764        | 0.453216        | 0.794332        | 0.000000        | 0.728889        |
+| Code and Command Injection | 0.990200     | 0.474000        | 0.455200        | 0.796400        | 0.000000        | 0.808000        |
+| Hard Negatives             | 0.958000     | 0.754000        | 0.756000        | 0.014000        | 1.000000        | 0.840000        |
+| Regular Content            | 0.968000     | 0.379000        | 0.786000        | 0.222000        | 1.000000        | 0.940000        |
+
+![Model Performance Against Prompt Attack Threats](/AI%20Red%20Teaming%20Benchmark%20(1).pdf)
 
 Benchmarks span 40+ attack classes including obfuscation (e.g. ANSI, ASCII), jailbreaks (e.g. DAN, Goodside), injections (e.g. SQL, shell), and real-world attacks observed in LLM deployments.
 

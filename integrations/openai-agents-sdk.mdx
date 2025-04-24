@@ -21,10 +21,11 @@ Use our interactive Colab notebook experiment:
 
 👉 [Open in Google Colab](https://colab.research.google.com/drive/177h53pmWT3SlgAhgbrEf88o5XkfZjcNK?usp=sharing)
 
+![OpenAI Agents SDK + GuardionAI Integration](/openai-agents-colab.png)
 
 ---
 
-### What You’ll Need
+## What You’ll Need
 
 - Your **Guardion API Key**
 - Your **OpenAI API Key**
@@ -104,7 +105,7 @@ async def guardion_output_guardrail(ctx: RunContextWrapper, agent: Agent, output
     messages.append({"role": "assistant", "content": output.response})
 
     response = requests.post(
-        "https://api.guardion.ai/v1/chat/completions",
+        "https://api.guardion.ai/v1/guard",
         headers={
             "Authorization": "Bearer <your_guardion_token>",
             "Content-Type": "application/json"

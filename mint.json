@@ -32,6 +32,12 @@
           "quickstart"
         ]
       },
+      {
+        "group": "Integrations",
+        "pages": [
+          "integrations/openai-agents-sdk"
+        ]
+      },
         {
             "group": "Guardion API endpoints",
             "pages": [

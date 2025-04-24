@@ -25,32 +25,32 @@ Use our interactive Colab notebook experiment:
 
 #### Example output in the Google Colab Example:
 ```json
-    ❌ {
-        "object": "eval",
-        "time": 2.0, // response in 2 ms thanks to caching
-        "created": 1745525108,
-        "flagged": true, // threat flagged
-        "breakdown": [
-            {
-                "policy_id": "prompt-defense-default", // or your custom policy
-                "detector": "modern-guard",
-                "detected": true,
-                "threshold": 0.8,
-                "score": 0.9129506945610046,
-                "result": [
-                    {
-                        "label": "SAFE",
-                        "score": 0.08704936504364014
-                    },
-                    {
-                        "label": "INJECTION",
-                        "score": 0.9129506945610046
-                    }
-                ]
-            }
-        ]
-    }
-    ❌ Guardion flagged this input as unsafe.
+❌ {
+    "object": "eval",
+    "time": 2.0, // response in 2 ms thanks to caching
+    "created": 1745525108,
+    "flagged": true, // threat flagged
+    "breakdown": [
+        {
+            "policy_id": "prompt-defense-default", // or your custom policy
+            "detector": "modern-guard",
+            "detected": true,
+            "threshold": 0.8,
+            "score": 0.9129506945610046,
+            "result": [
+                {
+                    "label": "SAFE",
+                    "score": 0.08704936504364014
+                },
+                {
+                    "label": "INJECTION",
+                    "score": 0.9129506945610046
+                }
+            ]
+        }
+    ]
+}
+❌ Guardion flagged this input as unsafe.
 
 ```
 

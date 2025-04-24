@@ -33,6 +33,12 @@
         ]
       },
       {
+        "group": "Detectors",
+        "pages": [
+          "modern-guard"
+        ]
+      },
+      {
         "group": "Integrations",
         "pages": [
           "integrations/openai-agents-sdk",

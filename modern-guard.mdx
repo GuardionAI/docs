@@ -1,0 +1,103 @@
+---
+title: "ModernGuard v1"
+description: "Multilingual and Ultra-Fast Prompt Attack Detector for AI Agent Security"
+---
+
+# ModernGuard: The Advanced Prompt Attack Detection
+
+Developed by industry experts with experience building enterprise-grade AI guardrails at Siri Apple, Nubank and other leading companies,
+
+ModernGuard is a specialized and **modern** transformer-encoder model designed to detect and prevent prompt attacks in real-time. This enterprise-grade solution offers multilingual support and ultra-fast inference capabilities to protect GenAI systems across various domains.
+
+---
+
+# Model Card
+
+### Modern Transformer-Encoder Architecture
+- Built on **ModernBERT**, a high-efficiency encoder
+- Features **Rotary Positional Embeddings**, **Flash Attention**, and memory optimizations
+- Supports **8K token context** with low latency
+
+### ⚡ Ultra-Fast Inference
+- Optimized for real-time streaming and in-line LLM applications
+- Achieves sub **~50ms latency** in production environments
+
+### Multilingual and Domain-Aware
+- Trained on data in **8+ languages**
+- Covers **banking, fintech, ecommerce, healthcare**, and other verticals
+
+### 🔐 Threat Intelligence Training
+- Pretrained on **1 trillion tokens**
+- Fine-tuned on millions of simulated and real-world prompt attacks
+  - Proprietary red teaming data
+  - Public prompt attack corpora
+  - AI threat databases and benchmarks
+---
+
+## Benchmark Results
+
+This is the result for the benchmark, collecting public and private threats from red teaming partners and with set of updated threats database used from NVIDIA Garak and PromptFoo libraries. Our comprehensive evaluation demonstrates ModernGuard's superior performance across diverse attack vectors.
+
+The benchmark methodology includes:
+- Evaluation against 40+ attack classes
+- Cross-validation across multiple domains and languages
+
+
+### Overall F1-Scores
+| Model (HuggingFace repositories)          | F1-score |
+|-------------------------------------------|----------|
+| GuardionAI/ModernGuard                    | **0.986**|
+| Lakera Guard                              | 0.804    |
+| deepset/deberta-v3-base-injection         | 0.787    |
+| protectai/deberta-v3-base-prompt-injection| 0.534    |
+| meta-llama/Prompt-Guard-86M               | 0.484    |
+| jackhhao/jailbreak-classifier             | 0.100    |
+
+
+### Threat Category Coverage
+| Threat Category             | ModernGuard | Best Peer Model |
+|----------------------------|--------------|-----------------|
+| Encoding & Obfuscation     | 0.967        | 0.803           |
+| Prompt Injection & Override| 0.991        | 0.854           |
+| Jailbreaking Techniques    | 0.980        | 0.904           |
+| Exfiltration & Leakage     | 0.993        | 0.905           |
+| Malware & Code Injection   | 0.992        | 0.887           |
+| Adversarial Testing        | 0.985        | 0.881           |
+
+Benchmarks span 40+ attack classes including obfuscation (e.g. ANSI, ASCII), jailbreaks (e.g. DAN, Goodside), injections (e.g. SQL, shell), and real-world attacks observed in LLM deployments.
+
+A comprehensive research paper detailing ModernGuard's architecture, training methodology, and benchmark results will be published soon.
+
+
+---
+
+## How to Use ModernGuard
+
+You need to combine the ModernGuard detector with a guardrail policy, so you can have control and fine-tune it for the specific risk level you want to manage (threshold levels).
+
+### 💡 Example integration using a default policy
+
+```js
+const messages = [
+  { role: "user", content: "Your user input here" }
+];
+
+// Evaluate user message
+const response = await fetch("https://api.guardion.ai/v1/guard", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "Authorization": "Bearer YOUR_API_KEY"
+  },
+  body: JSON.stringify({ message: messages })
+});
+
+const result = await response.json();
+
+if (result.flagged) {
+  console.log("Threat detected:", result.reason);
+} else {
+  console.log("Prompt is safe to use");
+}
+```
+

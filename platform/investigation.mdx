@@ -27,45 +27,33 @@ On the **Logs** page, you can filter and search through logs to isolate importan
 
 ---
 
-## ⚠️ Threats Mode
-
-By filtering requests by threat type, you can quickly surface flagged threats like:
-
-- Prompt Injections  
-- Jailbreaks  
-- Toxic Content  
-- Hallucinations
-
-![Flagged Review](./logs-review-flagged.jpeg)
-
-Use this mode to focus on high-risk logs and accelerate triage.
-
----
-
 ## 📝 Log Review
 
 Click on any log to inspect:
 
-- Full conversation context (user, assistant, system prompts)
-- Threat metadata (labels, scores, detector output)
-- Associated policy violations
-- Source information (API, customer app, etc.)
+- Full conversation context (user, assistant)
+- Threat metadata (confidence, policies, detector decision)
+- Associated policy applied and violations
+- Source information (metadata, session)
+- Fix misclassification by giving feedback
 
+#### Threat flagged example
+![Flagged Review](./logs-review-flagged.jpeg)
+
+#### Regular prompt example
 ![Unflagged Review](./logs-review-unflagged.jpeg)
 
 ---
 
 ## ⚡ Bulk Feedback Actions
 
+It's important to review and feedback important logs to re-train your detectors and improve performance.
+
 Speed up your investigation workflow using **bulk actions**:
 
 - ✅ Select multiple rows  
-- 🚩 Apply labels like:
+- 🚩 Apply:
   - ❌ **Misclassification**
-  - ✅ **Confirm as Flagged**
+  - ✅ **Confirm as Flagged** (on Threat mode)
 
-Once labeled, you can **submit in bulk** to re-train your detectors and improve performance.
-
-```plaintext
-[x] Misclassification
-[✓] Confirm as Flagged
+Once labeled, you can **submit** to re-train your detectors and improve performance.

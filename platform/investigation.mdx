@@ -1,0 +1,71 @@
+---
+title: "Misclassification and Flagged Threats Investigation"
+description: "Learn how to monitor your GenAI system with control and confidence."
+---
+
+[![Watch the demo](./logs-video-preview.png)](https://img.youtube.com/vi/VIDEO_ID_HERE/0.jpg)
+
+> 🎥 Click above to watch the full video previewing Investigation.
+
+---
+
+# 🕵️ Logs Investigation
+
+The **Logs Investigation Dashboard** is a powerful tool for teams to review AI incidents, analyze attacks and trends, and submit detection feedback at scale. It enables LLMOps, security, and red teams to prioritize and improve detection behavior based on real threats and usage.
+
+---
+
+## 🔎 Investigation Filters
+
+On the **Logs** page, you can filter and search through logs to isolate important incidents. The filters include:
+
+- **Threat category** or **All requests**
+- **Search** by keyword or ID
+- **Date range** selection
+
+![Logs Listing](./logs-listing.jpeg)
+
+---
+
+## ⚠️ Threats Mode
+
+By filtering requests by threat type, you can quickly surface flagged threats like:
+
+- Prompt Injections  
+- Jailbreaks  
+- Toxic Content  
+- Hallucinations
+
+![Flagged Review](./logs-review-flagged.jpeg)
+
+Use this mode to focus on high-risk logs and accelerate triage.
+
+---
+
+## 📝 Log Review
+
+Click on any log to inspect:
+
+- Full conversation context (user, assistant, system prompts)
+- Threat metadata (labels, scores, detector output)
+- Associated policy violations
+- Source information (API, customer app, etc.)
+
+![Unflagged Review](./logs-review-unflagged.jpeg)
+
+---
+
+## ⚡ Bulk Feedback Actions
+
+Speed up your investigation workflow using **bulk actions**:
+
+- ✅ Select multiple rows  
+- 🚩 Apply labels like:
+  - ❌ **Misclassification**
+  - ✅ **Confirm as Flagged**
+
+Once labeled, you can **submit in bulk** to re-train your detectors and improve performance.
+
+```plaintext
+[x] Misclassification
+[✓] Confirm as Flagged

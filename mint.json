@@ -33,6 +33,12 @@
         ]
       },
       {
+        "group": "Platform",
+        "pages": [
+          "platform/investigation"
+        ]
+      },
+      {
         "group": "Detectors",
         "pages": [
           "modern-guard"

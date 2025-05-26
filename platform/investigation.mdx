@@ -1,61 +1,88 @@
 ---
-title: "Threats Investigation"
-description: "Learn how to monitor your GenAI system with control and confidence."
+title: "Investigation"
+description: "Monitor and analyze your AI system activity with comprehensive logging and feedback tools."
 ---
 
----
+# Investigation
 
-# 🕵️ Logs Investigation, and Misclassification Feedbacks
+The Investigation tools in Guardion provide a comprehensive view of your AI system's activity, allowing you to monitor interactions, identify potential threats, and improve detection accuracy through feedback.
 
-Investigating the **Request Logs** is an important step to protect and monitor threats in GenAI systems, from AI incidents review, attacks and trends analyze, and detection feedback submit at scale. It enables LLMOps, security, and red teams to prioritize and improve detection behavior based on real threats and usage.
+## Logs
 
-[![Logs](./logs-video-preview.png)](https://youtu.be/i8l39Q3D2VE)
+The Logs section gives you a detailed view of all requests processed by your AI system, with powerful filtering and search capabilities to help you identify patterns and investigate incidents.
 
-### Watch the demo
+![Logs interface showing recent AI interactions](./logs-listing.jpeg)
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/i8l39Q3D2VE?si=wHOBCDCWzL-fTuUd" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+### Filtering options
 
----
+Narrow down your logs with these filtering tools:
 
-## 🔎 Investigation Filters
+- **Threat category filter** - Focus on specific threat types or view all requests
+- **Keyword search** - Find specific content within prompts or responses
+- **Date range selection** - Investigate activity within specific time periods
+- **Confidence threshold** - Filter by detection confidence to prioritize high-risk interactions
 
-On the **Logs** page, you can filter and search through logs to isolate important incidents. The filters include:
+### Log details
 
-- **Threat category** or **All requests**
-- **Search** by keyword
-- **Date range** selection
+Click on any log entry to view comprehensive information about the interaction:
 
-![Logs Listing](./logs-listing.jpeg)
+- Complete conversation history between user and assistant
+- Detection metadata including confidence scores and triggered policies
+- Source information including session ID and client metadata
+- Feedback options to improve detection accuracy
 
----
+<Frame>
+  <img src="./logs-review-flagged.jpeg" alt="Detailed view of a flagged interaction showing threat details" />
+</Frame>
 
-## 📝 Log Review
+<Frame>
+  <img src="./logs-review-unflagged.jpeg" alt="Detailed view of a regular interaction that passed all security checks" />
+</Frame>
 
-Click on any log to inspect:
+## Video walkthrough
 
-- Full conversation context (user, assistant)
-- Threat metadata (confidence, policies, detector decision)
-- Associated policy applied and violations
-- Source information (metadata, session)
-- Fix misclassification by giving feedback
+Watch our detailed walkthrough to see the investigation tools in action:
 
-#### Threat flagged example
-![Flagged Review](./logs-review-flagged.jpeg)
+<iframe 
+  width="100%" 
+  height="400" 
+  src="https://www.youtube.com/embed/i8l39Q3D2VE?si=wHOBCDCWzL-fTuUd" 
+  title="Guardion Investigation Tools Demo" 
+  frameborder="0" 
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+  referrerpolicy="strict-origin-when-cross-origin" 
+  allowfullscreen
+></iframe>
 
-#### Regular prompt example
-![Unflagged Review](./logs-review-unflagged.jpeg)
+## Feedback system
 
----
+The feedback system allows you to continuously improve your AI guardrails by providing input on detection results. When you identify a misclassification, you can mark it directly from the log details view.
 
-## ⚡ Bulk Feedback Actions
+### Benefits of providing feedback
 
-It's important to review and feedback important logs to re-train your detectors and improve performance.
+- Immediately adjusts detection thresholds in the Guard API
+- Helps build a dataset of edge cases specific to your use case
+- Improves model accuracy during periodic retraining
+- Reduces false positives while maintaining strong protection
 
-Speed up your investigation workflow using **bulk actions**:
+For more details on the feedback system, see our [Detection Feedbacks](/platform/feedbacks) documentation.
 
-- ✅ Select multiple rows  
-- 🚩 Apply:
-  - ❌ **Misclassification**
-  - ✅ **Confirm as Flagged** (on Threat mode)
+## Related resources
 
-Once labeled, you can **submit** to re-train your detectors and improve performance.
+<CardGroup cols={2}>
+  <Card title="Dashboard" icon="chart-line" href="/platform">
+    View key metrics and trends for your AI system
+  </Card>
+  
+  <Card title="Detection Feedbacks" icon="thumbs-up" href="/platform/feedbacks">
+    Learn how to improve detection accuracy with feedback
+  </Card>
+  
+  <Card title="Security Features" icon="shield" href="/platform/security">
+    Explore Guardion's comprehensive security capabilities
+  </Card>
+  
+  <Card title="API Reference" icon="code" href="/guard-api">
+    Integrate Guardion's protection into your applications
+  </Card>
+</CardGroup>

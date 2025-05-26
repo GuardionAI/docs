@@ -29,16 +29,17 @@
       {
         "group": "Getting Started",
         "pages": [
-            "intro",
+            "introduction",
             "quickstart",
-            "console",
             "support"
         ]
       },
       {
         "group": "Platform",
         "pages": [
-          "platform/investigation"
+          "platform/investigation",
+          "platform/feedbacks",
+          "platform/security"
         ]
       },
       {

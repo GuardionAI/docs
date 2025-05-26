@@ -1,0 +1,72 @@
+---
+title: "Feedbacks"
+description: "Improve your AI guardrails through our feedback loop system."
+---
+
+The feedback system allows you to continuously improve your AI guardrails by providing feedback on detection results. This human-in-the-loop approach helps fine-tune your detectors, reduce false positives, and enhance overall detection accuracy.
+
+## How feedback works
+
+When you provide feedback on detection results, Guardion uses this information to:
+
+1. Immediately adjust detection thresholds in the Guard API
+2. Incorporate your feedback during periodic model retraining
+3. Build a dataset of edge cases specific to your use case
+
+This process helps your guardrails become more accurate over time, reducing false positives while maintaining strong protection.
+
+<Frame>
+  <img src="/images/feedbacks.png" alt="Logs interface showing feedback options" />
+</Frame>
+
+## Providing feedback
+
+The feedback interface is integrated directly into the Logs section, making it easy to review and provide input as you investigate detections.
+
+### Individual feedback
+
+When reviewing a specific log entry:
+
+1. Click on the log to view all detection details
+2. For any incorrect classification, click **Mark as Misclassification**
+3. Your feedback is immediately applied to the relevant policies
+
+<Frame>
+  <img src="/images/feedback-misclassification.png" alt="Detailed feedback interface showing classification options" />
+</Frame>
+
+### Bulk feedback
+
+To efficiently review multiple logs at once:
+
+1. Select multiple log entries using the checkboxes
+2. Choose one of the available actions:
+   - **Mark as Misclassification** - For incorrectly classified content
+   - **Confirm as Flagged** - To validate correct threat detections (available when Threat filter is enabled)
+
+<Frame>
+  <img src="/images/feedback-bulk-mark.png" alt="Bulk feedback selection interface" />
+</Frame>
+
+> **Note:** Feedback is processed individually for each policy that triggered a detection, allowing for precise improvement of specific guardrails.
+
+## Reviewing feedback history
+
+You can review all feedback provided for each policy:
+
+<Frame>
+  <img src="/images/policy-card.png" alt="Policy card showing feedback summary" />
+</Frame>
+
+The feedback history shows all previous inputs and allows you to modify them if needed. Any changes take effect immediately in the Guard API.
+
+<Frame>
+  <img src="/images/policy-reviews.png" alt="Policy feedback history interface" />
+</Frame>
+
+## Best practices
+
+- Provide feedback regularly to continuously improve detection accuracy
+- Focus on edge cases that are specific to your use case
+- Review feedback history periodically to identify patterns in misclassifications
+- Use bulk actions for efficient review of similar detection types

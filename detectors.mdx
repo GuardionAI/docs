@@ -1,0 +1,64 @@
+---
+title: "Detectors"
+description: "Learn about Guardion's AI safety detectors and guardrails."
+---
+
+# Detectors for AI runtime control
+
+Guardion provides multiple detectors to protect your AI systems from various threats and ensure safe, reliable outputs.
+
+## Available Detectors
+
+<CardGroup cols={2}>
+  <Card title="Prompt Defense" icon="shield-check" href="/platform/detectors/modern-guard">
+    Protect against prompt injections, jailbreaks, and other adversarial attacks with our advanced Modern Guard detector.
+  </Card>
+  
+  <Card title="Modern Guard" icon="lock-keyhole" href="/platform/detectors/modern-guard">
+    Our flagship detector that uses representation engineering to identify and block sophisticated prompt attacks.
+  </Card>
+</CardGroup>
+
+## Coming Soon
+
+<CardGroup cols={3}>
+  <Card title="Content Moderation" icon="filter-circle-xmark">
+    Filter harmful, inappropriate, or unsafe content from both inputs and outputs.
+  </Card>
+  
+  <Card title="Hallucination Detection" icon="brain-circuit">
+    Identify uncertainty in AI responses using representation engineering techniques.
+  </Card>
+  
+  <Card title="PII Detection" icon="user-lock">
+    Automatically detect and redact personally identifiable information in prompts and responses.
+  </Card>
+  
+  <Card title="Output Handling" icon="code">
+    Safely manage code execution and other potentially risky outputs.
+  </Card>
+  
+  <Card title="More Guardrails" icon="ellipsis">
+    Additional safety features coming to the Guardion platform.
+  </Card>
+</CardGroup>
+
+## Detector Configuration
+
+Each detector can be configured with custom thresholds and policies through the Guardion dashboard or API.
+
+<AccordionGroup>
+  <Accordion title="How do detectors work?">
+    Guardion's detectors use advanced machine learning models to analyze inputs and outputs, identifying patterns that match known attack vectors or unsafe content.
+  </Accordion>
+
+  <Accordion title="Can I customize detection thresholds?">
+    Yes, each detector allows for custom confidence thresholds to balance security with usability for your specific use case.
+  </Accordion>
+
+  <Accordion title="How do I implement guardrails?">
+    Guardrails can be implemented via our API or SDK. Check our Quickstart guide for implementation details.
+  </Accordion>
+</AccordionGroup>
+
+Need help configuring your detectors? [Contact our Support Team](mailto:support@guardion.ai).

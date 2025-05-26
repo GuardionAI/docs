@@ -29,7 +29,10 @@
       {
         "group": "Getting Started",
         "pages": [
-          "quickstart"
+            "intro",
+            "quickstart",
+            "console",
+            "support"
         ]
       },
       {

@@ -1,43 +1,62 @@
 ---
-title: "Investigation"
-description: "Monitor and analyze your AI system activity with comprehensive logging and feedback tools."
+title: "Threat Investigation"
+description: "Monitor, analyze, and respond to AI system activity with comprehensive logging and feedback tools."
 ---
 
-# Investigation
+The Logs interface is your central hub for monitoring and investigating AI interactions. 
+Each log entry contains detailed information about the request section, time, messages and any flags triggered during evaluation.
 
-The Investigation tools in Guardion provide a comprehensive view of your AI system's activity, allowing you to monitor interactions, identify potential threats, and improve detection accuracy through feedback.
+<Frame>
+<img src="/images/logs-view.png" alt="Guardion investigation dashboard showing filtered logs and threat details" />
+</Frame>
 
-## Logs
+### Filtering and search
 
-The Logs section gives you a detailed view of all requests processed by your AI system, with powerful filtering and search capabilities to help you identify patterns and investigate incidents.
+Quickly find relevant requests with these filtering tools:
 
-![Logs interface showing recent AI interactions](./logs-listing.jpeg)
+- **Threat filters** - Focus on specific threat categories or view all requests
+- **Full-text search** - Find specific content within prompts or responses
+- **Time range** - Narrow results to specific time periods (day, week, or custom)
+- **Confidence threshold** - Adjust minimum confidence score to focus on high-probability threats (coming soon)
+- **Session ID** - Track specific user sessions across multiple interactions
 
-### Filtering options
-
-Narrow down your logs with these filtering tools:
-
-- **Threat category filter** - Focus on specific threat types or view all requests
-- **Keyword search** - Find specific content within prompts or responses
-- **Date range selection** - Investigate activity within specific time periods
-- **Confidence threshold** - Filter by detection confidence to prioritize high-risk interactions
+<Tip>
+Use the search function to look for specific keywords that might indicate security concerns, such as "password," "API key," or "database access."
+</Tip>
 
 ### Log details
 
 Click on any log entry to view comprehensive information about the interaction:
 
-- Complete conversation history between user and assistant
-- Detection metadata including confidence scores and triggered policies
-- Source information including session ID and client metadata
-- Feedback options to improve detection accuracy
-
 <Frame>
-  <img src="./logs-review-flagged.jpeg" alt="Detailed view of a flagged interaction showing threat details" />
+  <img src="/images/log-feedback-review-flagged.png" alt="Detailed view of a flagged interaction showing threat details and conversation context" />
 </Frame>
 
+Each log detail view includes:
+
+- **Complete conversation history** - See the full context of the interaction
+- **Detection metadata** - View confidence scores and specific policies triggered
+- **Source information** - Identify the origin with session ID and client metadata
+- **Feedback controls** - Provide input to improve detection accuracy
+
+For interactions that passed all security checks, you'll see a simplified view:
+
 <Frame>
-  <img src="./logs-review-unflagged.jpeg" alt="Detailed view of a regular interaction that passed all security checks" />
+  <img src="/images/log-feedback-review-safe.png" alt="Detailed view of a safe interaction that passed all security checks" />
 </Frame>
+
+## Providing feedback
+
+When reviewing logs, you can help improve Guardion's detection accuracy by providing feedback on any misclassifications you find:
+
+1. Open the log detail view for the interaction
+2. Review the detection results and conversation context
+3. If you identify a false positive or false negative, click **Mark as Misclassification**
+4. Your feedback is immediately incorporated into the detection system
+
+<Note>
+Your feedback helps build a dataset specific to your policy, making Guardion's runtime control more accurate over time. Learn more in our [Feedbacks](/platform/feedbacks) documentation.
+</Note>
 
 ## Video walkthrough
 
@@ -54,31 +73,26 @@ Watch our detailed walkthrough to see the investigation tools in action:
   allowfullscreen
 ></iframe>
 
-## Feedback system
+## Best practices
 
-The feedback system allows you to continuously improve your AI guardrails by providing input on detection results. When you identify a misclassification, you can mark it directly from the log details view.
-
-### Benefits of providing feedback
-
-- Immediately adjusts detection thresholds in the Guard API
-- Helps build a dataset of edge cases specific to your use case
-- Improves model accuracy during periodic retraining
-- Reduces false positives while maintaining strong protection
-
-For more details on the feedback system, see our [Detection Feedbacks](/platform/feedbacks) documentation.
+- **Regular monitoring**: Schedule time to review logs daily or weekly depending on your traffic volume
+- **Investigate patterns**: Look for repeated attempts that might indicate targeted attacks
+- **Provide feedback**: Mark misclassifications to continuously improve detection accuracy
+- **Set up alerts**: Configure notifications for high-confidence threats (coming soon)
+- **Export data**: Use the API to integrate log data with your existing security tools (coming soon)
 
 ## Related resources
 
 <CardGroup cols={2}>
   <Card title="Dashboard" icon="chart-line" href="/platform">
-    View key metrics and trends for your AI system
+    View key metrics and trends across your AI system
   </Card>
   
-  <Card title="Detection Feedbacks" icon="thumbs-up" href="/platform/feedbacks">
+  <Card title="Feedbacks" icon="thumbs-up" href="/platform/feedbacks">
     Learn how to improve detection accuracy with feedback
   </Card>
   
-  <Card title="Security Features" icon="shield" href="/platform/security">
+  <Card title="Account Security Features" icon="shield" href="/platform/security">
     Explore Guardion's comprehensive security capabilities
   </Card>
   

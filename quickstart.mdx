@@ -3,22 +3,27 @@ title: "Quickstart"
 description: "Run your first Guardion runtime control in under 2 minutes."
 ---
 
-> Jump into our [interactive Colab notebook](https://colab.research.google.com/drive/1-hDdm2wDQjn9bMQ1l0g5Sjb67qhH4H9n?usp=sharing) to experiment with real DataFrames.
+Choose one of these options to start using Guardion, or continue below.
+
+<CardGroup cols={2}>
+  <Card title="Interactive Colab Notebook" icon="google" href="https://colab.research.google.com/drive/1-hDdm2wDQjn9bMQ1l0g5Sjb67qhH4H9n?usp=sharing">
+  Run examples and test Guardion's capabilities with pre-configured code samples
+</Card>
+
+  <Card title="Try Guardion Playground" icon="flask" href="https://guardion.ai/playground">
+  Experiment with different prompts and see how Guardion's guardrails work in real-time
+</Card>
+</CardGroup>
 
 
-If you want to test your own policies or experiment with different inputs, you can use the Guardion Playground in the Console.
+## How to integrate with Guard API
 
-![Guardion Playground](images/playground.png)
+Integrate Guardion directly into your application using our APIs. See the code examples below to get started with API integration.
 
-The Playground allows you to:
-- Test different prompts against your policies
-- See detailed detection results
-- Adjust thresholds and settings in real-time
-- Experiment before deploying to production
 
 ## Prerequisites
 
-* A Guardion API key (get it in the [Console](https://guardion.ai))
+* A Guardion API key
 * cURL or any HTTP client
 
 ## API Key Setup
@@ -29,6 +34,8 @@ To use Guardion, you'll need an API key. You can get one from the [Guardion Cons
 
 Once you have your API key, you can set it as an environment variable:
 
+---
+
 
 ## Environment Setup
 
@@ -38,6 +45,14 @@ You can set your API key as an environment variable:
 ```bash
 # Set your Guardion API key
 echo 'export GUARDION_KEY="sk-…"' >> ~/.bashrc && source ~/.bashrc
+```
+---
+## Authentication
+
+Every request must include an API key in the `Authorization` header:
+
+```
+Authorization: Bearer GUARDION_KEY
 ```
 
 ---
@@ -131,35 +146,28 @@ print(response.json())
 
 ---
 
-# Important notes
+## Check Results in Dashboard
 
-## 🛠️ API endpoint
+After using the Guard API, you can view detailed results in the Guardion dashboard with insights into detected threats, allowing you to monitor and analyze in real-time.
 
-You can use the Guardion API from any HTTP client: Python, cURL, Postman, etc. No SDK is required.
+<Frame>
+<img src="/images/logs-view.png" alt="Guardion investigation dashboard showing filtered logs and threat details" />
+</Frame>
 
-### 🔑 Authentication
+## Important notes
 
-Every request must include an API key in the `Authorization` header:
 
-```
-Authorization: Bearer YOUR_API_KEY
-```
+### ⏱️ Rate Limits
 
-You can get access your API Key in the console. [Get API Key in Guardion Console](https://guardion.ai)
-
----
-
-## ⏱️ Rate Limits
-
-The Guardion API enforces a default rate limit of **1000 requests per minute** per API key.
+The Guard API enforces a default rate limit of **1000 requests per minute** per project.
 
 If you require a higher rate limit, please contact us at [founders@guardion.ai](mailto:founders@guardion.ai) and we’ll be happy to help.
 
-## 📨 API Endpoint
+### 📨 API Endpoint
 
 `https://api.guardion.ai/v1/guard`
 
-### POST `/v1/guard`
+#### POST `/v1/guard`
 
 Evaluate and apply guardrails to user-assistant messages.
 
@@ -207,11 +215,23 @@ Evaluate and apply guardrails to user-assistant messages.
 
 ## Next Steps
 
-* 🔍 [Check our supported detectors](../detectors)
-* ⚙️ [How setup policies](../policies)
-* 📊 [Dashboard & Logs investigation](../platform/investigation)
-* ⚙️ [Feedbacks and setup policies](../policies)
-
+<CardGroup cols={2}>
+  <Card title="API Reference" icon="code" href="../guard-api">
+    Check our comprehensive API documentation
+  </Card>
+  
+  <Card title="Modern Guard" icon="shield" href="../modern-guard">
+    Learn more about our modern-guard technology
+  </Card>
+  
+  <Card title="Dashboard & Threat Investigation" icon="chart-line" href="../platform/investigation">
+    Explore investigation tools and monitoring capabilities
+  </Card>
+  
+  <Card title="Integrations" icon="puzzle-piece" href="../integrations/openai-agents-sdk">
+    Implement LangChain & OpenAI Agent SDK integrations
+  </Card>
+</CardGroup>
 
 
 Need help? Reach out at [founders@guardion.ai](mailto:founders@guardion.ai)

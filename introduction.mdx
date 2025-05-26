@@ -1,51 +1,25 @@
 
 
-export function openSearch(e) {
-  e.preventDefault();
-  document.getElementById('search-bar-entry').click();
-}
 
-
-<div onClick={openSearch} style={{ cursor: 'pointer' }}>
-  <Card title="Ask our docs" icon="message-circle-question" href="https://mintlify.com/docs" arrow={true}>
-    Ask our AI assistant that's been trained on our documentation.
-  </Card>
-</div>
 
 <CardGroup cols={2}>
-  <Card title="Access our Platform (sign in)" icon="messages-square" href="https://guardion.ai/auth/sign-in">
-    Send us a message from your dashboard. Select **Support** in your dashboard's sidebar.
+  
+  <Card title="Quickstart" icon="rocket" href="/quickstart">
+  Get started with Guardion's API in minutes. Protect your AI applications from prompt injection and other threats.
   </Card>
 
-  <Card title="Quickstart" icon="mail" href="mailto:support@mintlify.com">
-    If you can't access your dashboard, email us at [support@mintlify.com](mailto:support@mintlify.com).
+  <Card title="Threat Investigation Platform" icon="shield" href="/platform/investigation">
+    Explore our threat investigation platform to monitor, analyze, and respond to AI security incidents in real-time.
   </Card>
 
-  <Card title="API Reference" icon="bot" href="https://mintlify.com/community">
-    Join our community and ask our AI assistant that's been trained on our documentation.
+  <Card title="API Reference" icon="code" href="/guard-api">
+    Explore our API documentation to integrate Guardion's security features into your applications.
   </Card>
 
-  <Card title="Discord Community" icon="youtube" href="https://www.youtube.com/@GetMintlify/videos">
-    Watch tutorials and guides on our YouTube channel.
+  <Card title="Discord Community" icon="discord" href="https://discord.gg/PDWss5Fz79">
+    Join our Discord community to connect with other Guardion users, share experiences, and get help from our team.
   </Card>
 </CardGroup>
 
-## FAQ
 
-If you encounter any issues during the setup process, check our common troubleshooting solutions:
-
-<AccordionGroup>
-  <Accordion title="Local preview not working">
-    Make sure you have Node.js v19+ installed and that you're running the `mint dev` command from the directory containing your `docs.json` file.
-  </Accordion>
-
-  <Accordion title="Changes not reflecting on live site">
-    Deployment can take upwards to a few minutes. Check your GitHub Actions (for code-based workflow) or deployment logs in the Mintlify dashboard to ensure there are no build errors.
-  </Accordion>
-
-  <Accordion title="Custom domain not connecting">
-    Verify that your DNS records are set up correctly and allow sufficient time for DNS propagation (up to 48 hours). You can use tools like [DNSChecker](https://dnschecker.org) to verify your CNAME record.
-  </Accordion>
-</AccordionGroup>
-
-Need more help? [Contact our Support Team](mailto:support@mintlify.com).
+Need help? [Contact our Support Team](mailto:founders@guardion.ai).

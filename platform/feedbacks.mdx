@@ -5,23 +5,29 @@ description: "Improve your AI guardrails through our feedback loop system."
 
 The feedback system allows you to continuously improve your AI guardrails by providing feedback on detection results. This human-in-the-loop approach helps fine-tune your detectors, reduce false positives, and enhance overall detection accuracy.
 
+
+<Frame>
+  <img src="/images/log-feedback-mark-dialog.png" alt="Logs interface showing feedback options" />
+</Frame>
 ## How feedback works
 
 When you provide feedback on detection results, Guardion uses this information to:
 
-1. Immediately adjust detection thresholds in the Guard API
-2. Incorporate your feedback during periodic model retraining
-3. Build a dataset of edge cases specific to your use case
+1. Build a dataset of edge cases specific to your use case
+2. Immediately apply adjustments to incoming prompts and responses in the Guard API (using similarity and string match)
+3. Incorporate your feedback during for the policy's models retraining
+
 
 This process helps your guardrails become more accurate over time, reducing false positives while maintaining strong protection.
 
-<Frame>
-  <img src="/images/feedbacks.png" alt="Logs interface showing feedback options" />
-</Frame>
 
 ## Providing feedback
 
 The feedback interface is integrated directly into the Logs section, making it easy to review and provide input as you investigate detections.
+
+<Frame>
+  <img src="/images/feedbacks.png" alt="Logs interface showing feedback options" />
+</Frame>
 
 ### Individual feedback
 
@@ -45,7 +51,7 @@ To efficiently review multiple logs at once:
    - **Confirm as Flagged** - To validate correct threat detections (available when Threat filter is enabled)
 
 <Frame>
-  <img src="/images/feedback-bulk-mark.png" alt="Bulk feedback selection interface" />
+  <img src="/images/feedback-bulk-mark-2.png" alt="Bulk feedback selection interface" />
 </Frame>
 
 > **Note:** Feedback is processed individually for each policy that triggered a detection, allowing for precise improvement of specific guardrails.
@@ -58,11 +64,48 @@ You can review all feedback provided for each policy:
   <img src="/images/policy-card.png" alt="Policy card showing feedback summary" />
 </Frame>
 
-The feedback history shows all previous inputs and allows you to modify them if needed. Any changes take effect immediately in the Guard API.
+The feedback history shows all previous inputs and allows you to modify them if needed. Any changes take effect immediately in the Guard API inside the feedback system.
 
 <Frame>
-  <img src="/images/policy-reviews.png" alt="Policy feedback history interface" />
+  <img src="/images/policy-dataset.png" alt="Policy feedback history interface" />
 </Frame>
+
+
+
+## Feedback Integration with Guard API
+
+The following diagram illustrates how the Guard API processes requests and incorporates feedback throughout the workflow:
+
+```mermaid
+  flowchart LR
+    User -->|Request| ValidateInput[Apply Guardrail Policies]
+    OutputGuard -->|Response| User[HTTP Client]
+
+    ValidateInput --> Custom
+    ValidateInput --> Database
+
+    subgraph AIDetectors[#2 - AI Detectors]
+        direction TB
+        Custom[**Policy Model Version**\nTrained on feedbacks]
+        Custom --> AI[**Base Model**\nGuardion LLMs] 
+        
+    end
+
+    subgraph FeedbackSystem[#1 - Instant Feedbacks]
+        direction TB
+        Database[**Policy Database**\nProvided feedbacks] --> StringMatch[String Match] 
+        StringMatch --> SemanticSimilarity[Semantic Similarity]
+    end
+
+    subgraph GuardAPI[Guard API /v1/guard]
+        direction TB
+        ValidateInput[**Apply Policies**\nTarget & Messages] --> ValidateOutput
+        ValidateOutput[**Policy Decision**\nFlagging Decision] --> OutputGuard[Output Guardrail]
+    end
+    
+```
+
+
 
 ## Best practices
 

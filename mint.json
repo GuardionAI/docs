@@ -31,7 +31,8 @@
         "pages": [
             "introduction",
             "quickstart",
-            "support"
+            "support",
+            "changelog"
         ]
       },
       {

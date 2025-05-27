@@ -77,26 +77,45 @@ The feedback history shows all previous inputs and allows you to modify them if 
 The following diagram illustrates how the Guard API processes requests and incorporates feedback throughout the workflow:
 
 ```mermaid
-  flowchart LR
-    User -->|API Request| ValidateInput[Apply Guardrail Policies]
-    OutputGuard -->|API Response| User[HTTP Client]
-
-    ValidateInput -->|Detectors input| Database
-
-
-    subgraph FeedbackSystem[Multi-layered detection]
+flowchart TB
+    Client[Client Application]
+    
+    Client -->|POST /v1/guard| API[Guard API]
+    
+    subgraph API[Guard API]
         direction TB
-        Database[**#1 - Policy database check**\nMatch with instant feedbacks]
-        Database --> Custom
-        Custom[**#2 - Policy-specific models**\nOptimized model based on policy database]
-        Custom --> AI[**#3 - Base detection models**\nGuardion LLMs for zero day threats] 
+        
+        Input[Input Validation]
+        Policy[Policy Engine]
+        Detection[Detection Pipeline]
+        Eval[Threshold Evaluator]
+        
+        Input --> Policy
+        Policy --> Detection
+        Detection --> Eval
     end
-
-    subgraph GuardAPI[Guard API /v1/guard]
-        direction TB
-        ValidateInput[**Policy application**\nTarget user or assistant messages]
-        FeedbackSystem -->|Detectors output scores| ValidateOutput[**Threshold evaluation**\nFlagging Decision] --> OutputGuard[Output Guardrail]
+    
+    subgraph Detection[Detection Pipeline]
+        direction LR
+        
+        L1[**Layer 1:**<br/>Feedback Database<br/>Real-time updates]
+        L2[**Layer 2:**<br/>Policy-Specific Models<br/>Period updates]
+        L3[**Layer 3:**<br/>Threat Intelligence<br/>Foundation Models<br/>Obfuscation Filters<br/>]
+        
+        L1 --> L2
+        L2 --> L3
+        
+        L1 -.->|Flag| Result[Detection Result]
+        L2 -.->|Flag| Result
+        L3 -.->|Flag| Result
     end
+    
+    Eval -->|Response| Client
+    
+    style L1 fill:#e3f2fd
+    style L2 fill:#e8f5e9
+    style L3 fill:#fff3e0
+    style Result fill:#ffebee
     
 ```
 
@@ -105,9 +124,9 @@ The following diagram illustrates how the Guard API processes requests and incor
 
 The Guard API follows a structured evaluation process for each request:
 
-1. **Policy application**: Each request is evaluated against your configured policies, which specify both the target (user or assistant messages) and the detection thresholds.
+1. **Policy apply engine**: Each request is evaluated against your configured policies, which specify both the target (user or assistant messages) and the detection thresholds.
 
-2. **Multi-layered detection**: The system processes each request through a cascading detection pipeline:
+2. **Multi-layered detection pipeline**: The system processes each request through a cascading detection pipeline:
    - **Feedback database check**: First, we check against your policy's feedback database using exact string matching and semantic similarity algorithms
    - **Policy-specific models**: If not flagged by feedback, the request is evaluated by models specifically trained on your policy's feedback data
    - **Base detection models**: Finally, Guardion's foundation detection models evaluates the request to provide comprehensive protection

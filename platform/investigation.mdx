@@ -73,6 +73,32 @@ Watch our detailed walkthrough to see the investigation tools in action:
   allowfullscreen
 ></iframe>
 
+## Key terms
+
+Understanding the following terms will help you effectively our platform:
+
+### Threats
+Threats are specific types of risks that Guardion detects, such as prompt injections, jailbreaks, or harmful content. Each threat type has its own detector and can be configured as part of your policies. The logs interface shows which threats were detected in each interaction.
+
+### Flagged
+When content triggers one of your policies, it gets "flagged" in the system, meaning a risk has been identified. Flagged content appears in your logs with detailed information about which policies were triggered and why. This visibility gives you a clear audit trail to quickly identify, investigate, and remediate potential security and compliance issues across your AI interactions.
+
+
+### Confidence score
+For each detected threat, Guardion provides a confidence score (0 to 1) indicating how certain the system is about the classification. Higher scores represent greater certainty that a real threat exists. 
+
+### Threshold
+Thresholds are configurable values that determine when a detection triggers a flag. You can adjust thresholds for each policy to balance control and usability. 
+- **L1 (Lenient)**: Provides basic protection with minimal false positives, offering a balance that favors user experience over strict control
+- **L2 (Moderate)**: Balanced approach with moderate protection and acceptable false positive rates
+- **L3 (Enhanced)**: Stronger protection with potentially more false positives, prioritizing security over perfect accuracy
+- **L4 (Strict)**: Maximum protection level with potentially higher false positive rates but ensures comprehensive coverage against potential threats
+
+###  Guardrails vs. Policies vs. Detectors
+- **Guardrails** are the protective boundaries you establish around your AI systems. They're implemented through policies and help ensure your AI behaves according to your requirements and security standards.
+- **Policies** are the rules you configure that determine how Guardion should handle different types of content. A policy defines which detectors to use, what thresholds and where target to apply.
+- **Detectors** are the specific mechanisms that identify particular types of threats. Each detector is specialized for a certain category of risk (e.g., prompt injection detector, harmful content detector, PII detector, code generation detector, etc). Policies use one or more detectors with configured thresholds.
+
 ## Best practices
 
 - **Regular monitoring**: Schedule time to review logs daily or weekly depending on your traffic volume

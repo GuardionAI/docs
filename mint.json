@@ -40,7 +40,8 @@
         "pages": [
           "platform/investigation",
           "platform/feedbacks",
-          "platform/security"
+          "platform/security",
+          "platform/usage"
         ]
       },
       {

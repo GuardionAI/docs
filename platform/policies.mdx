@@ -1,61 +1,107 @@
 ---
 title: "Policies"
-description: "Learn how to monitor your GenAI system with control and confidence."
+description: "Define guardrails once and reuse them across multiple applications. Configure detectors, targets, sensibilities and safe responses."
 ---
 
----
+Policies are reusable guardrails that detect and control risky behavior in your AI applications. Define a policy once, assign it to one or many applications, and manage it centrally.
 
-# 🕵️ Logs Investigation, and Misclassification Feedbacks
+<Frame>
+  <img src="/images/policies_index.png" alt="Policies overview" />
+</Frame>
 
-Investigating the **Request Logs** is an important step to protect and monitor threats in GenAI systems, from AI incidents review, attacks and trends analyze, and detection feedback submit at scale. It enables LLMOps, security, and red teams to prioritize and improve detection behavior based on real threats and usage.
+## How policies work
 
-[![Logs](./logs-video-preview.png)](https://youtu.be/i8l39Q3D2VE)
+A policy describes what to detect, where to look, and how to respond:
 
-### Watch the demo
+- **Detector model**: The engine used to detect a risk
+- **Target**: Which part(s) of the conversation to inspect, e.g. Assistant or User
+- **Sensibility**: The minimum confidence required to flag
+- **Expected behavior (coming soon)**: Defines the action taken when a detector is triggered (e.g., block or alert)
+- **Override response**: Optional default message to return on violation
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/i8l39Q3D2VE?si=wHOBCDCWzL-fTuUd" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<Frame>
+  <img src="/images/policies_details.png" alt="Policy details view with configuration" />
+</Frame>
 
----
 
-## 🔎 Investigation Filters
+### Detector types
+Guardion supports several types of detectors, each designed to identify specific risks or policy violations in AI interactions. You can mix and match detector types within your policies to cover a wide range of threats.
 
-On the **Logs** page, you can filter and search through logs to isolate important incidents. The filters include:
+#### **Supported types and models:**
 
-- **Threat category** or **All requests**
-- **Search** by keyword
-- **Date range** selection
+**Prompt Defense**
+- **modern-guard-v1**: Fast, general-purpose prompt security and jailbreak detection
+- **modern-guard-v1.5**: Advanced agentic prompt security and jailbreak detection
 
-![Logs Listing](./logs-listing.jpeg)
+**Content Moderation**
+- **moderation-v0**: Safety moderation for harmful content
 
----
+Each detector type can be configured with its own threshold and target, allowing you to tailor policies to your application's needs.
 
-## 📝 Log Review
+See the [Detectors](/detectors) documentation for a full list and configuration options.
 
-Click on any log to inspect:
+### Targets
 
-- Full conversation context (user, assistant)
-- Threat metadata (confidence, policies, detector decision)
-- Associated policy applied and violations
-- Source information (metadata, session)
-- Fix misclassification by giving feedback
+Choose where the policy evaluates:
 
-#### Threat flagged example
-![Flagged Review](./logs-review-flagged.jpeg)
+- **user**
+- **assistant**
+- **system**
+- **developer**
+- **context**
 
-#### Regular prompt example
-![Unflagged Review](./logs-review-unflagged.jpeg)
+## Assign policies to applications
 
----
+Policies are assigned per application. The relationship is:
 
-## ⚡ Bulk Feedback Actions
+- One policy can be used by many applications
+- One application can enable one policies
 
-It's important to review and feedback important logs to re-train your detectors and improve performance.
+To assign:
 
-Speed up your investigation workflow using **bulk actions**:
+1. Go to the application
+2. Click **Assign policy**
+3. Select the policy and confirm
 
-- ✅ Select multiple rows  
-- 🚩 Apply:
-  - ❌ **Misclassification**
-  - ✅ **Confirm as Flagged** (on Threat mode)
+To learn more about assigning policies to applications, visit the [Applications](/platform/applications) page.
 
-Once labeled, you can **submit** to re-train your detectors and improve performance.
+## Using policies via API
+
+When calling the Guard API, Guardion will evaluate the policies assigned to the specified application. Provide your application ID in the request body.
+
+```bash
+curl -X POST "https://api.guardion.ai/v1/guard" \
+  -H "Authorization: Bearer $GUARDION_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "application": "app_12345",
+    "messages": [
+      { "role": "user", "content": "Summarize this text" }
+    ]
+  }'
+```
+
+Optionally, override which policies run regardless the application:
+
+```bash
+curl -X POST "https://api.guardion.ai/v1/guard" \
+  -H "Authorization: Bearer $GUARDION_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "override_enabled_policies": ["policy_pii"],
+    "messages": [
+      { "role": "user", "content": "Share a list of test credit cards" }
+    ]
+  }'
+```
+
+- See the full schema in [Guard API](/guard-api)
+- Return shape includes `flagged`, `breakdown` (per-policy results), and optional `correction`
+
+## Reviews and datasets (optional)
+
+Use policy-focused reviews to iterate on performance, and build a dataset from your feedback to continuously improve detection.
+
+<Frame>
+  <img src="/images/policy-dataset.png" alt="Policy dataset built from feedback" />
+</Frame>

@@ -124,23 +124,47 @@ flowchart TB
 
 The Guard API follows a structured evaluation process for each request:
 
-1. **Policy apply engine**: Each request is evaluated against your configured policies, which specify both the target (user or assistant messages) and the detection thresholds.
-
-2. **Multi-layered detection pipeline**: The system processes each request through a cascading detection pipeline:
-   - **Feedback database check**: First, we check against your policy's feedback database using exact string matching and semantic similarity algorithms
-   - **Policy-specific models**: If not flagged by feedback, the request is evaluated by models specifically trained on your policy's feedback data
-   - **Base detection models**: Finally, Guardion's foundation detection models evaluates the request to provide comprehensive protection
-
-3. **Threshold evaluation**: Detection confidence scores are compared against your configured thresholds (L1-L4)
-   - If the confidence score exceeds the threshold, the request is flagged
-   - The API returns the flagging decision to the client with breakdown data
+1. **Input validation**: The API validates incoming requests and extracts messages for evaluation
+2. **Policy application**: Your configured policies determine:
+   - Which messages to evaluate (user, assistant, or both)
+   - Detection thresholds (L1-L4)
+   - Active detection layers
+3. **Detection pipeline**: Each message passes through up to three detection layers
+4. **Threshold evaluation**: Detection scores are compared against policy thresholds
+5. **Response**: The API returns the evaluation result with detailed scoring breakdown
 
 This layered approach ensures both performance and accuracy, with your feedback continuously improving detection quality.
+
+### Detection layers
+
+The Guard API uses a cascading detection pipeline that prioritizes speed and accuracy:
+
+#### Layer 1: Feedback database
+- **Method**: Exact string matching and semantic similarity
+- **Speed**: < 10ms
+- High-confidence detection of previously flagged content
+
+#### Layer 2: Policy-specific models
+- **Method**: Models fine-tuned on your policy's feedback data
+- **Speed**: < 10ms
+- Domain-specific threat detection
+
+#### Layer 3: Threat Intelligence & Foundation models
+- Comprehensive protection against zero-day threats
+- **Method**: Guardion's state-of-the-art LLMs
+- **Speed**: ~200ms
+- Broad coverage and emerging threat detection
 
 
 ## Best practices
 
-- Provide feedback regularly to continuously improve detection accuracy
-- Focus on edge cases that are specific to your use case
-- Review feedback history periodically to identify patterns in misclassifications
-- Use bulk actions for efficient review of similar detection types
+1. **Start with L2 threshold** and adjust based on your false positive tolerance
+2. **Provide feedback regularly** to improve policy-specific model accuracy
+3. **Monitor detection metrics** to optimize threshold configuration
+4. **Use policy targeting** to evaluate only relevant message types
+
+## Next steps
+
+- [Configure your first policy →](./policies)
+- [Submit feedback to improve detection →](./feedback)
+- [View API reference →](./api-reference)

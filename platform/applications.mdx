@@ -1,0 +1,80 @@
+---
+title: "Applications"
+description: "Organize logs and guardrail policies by application; assign reusable policies to apps; evaluate via API with an application ID."
+---
+
+Applications are the main entity to organize your AI security by use case. Each application groups:
+
+- **Logs**: All evaluations and events for that use case
+- **Policies**: The guardrails applied to its interactions
+
+<Frame>
+  <img src="/images/applications.jpeg" alt="Applications overview showing logs and policy assignments by app" />
+</Frame>
+
+### Assign policies to applications
+
+Policies are reusable. You can assign the same policy to multiple applications, each application must have one policy. This lets you:
+
+- **Reuse once, enforce everywhere**: A single policy can protect multiple apps
+- **Isolate by use case**: Different applications can enable different policy sets
+- **Evolve safely**: Update a policy centrally and it applies to all assigned apps
+
+<Frame>
+  <img src="/images/applications_assign_policy.png" alt="Assign policies to an application" />
+</Frame>
+
+To assign:
+
+1. Open the desired application
+2. Click **Assign policy**
+3. Select one or more policies to enable for this application
+
+> One policy can be used by many applications. Removing an assignment affects only that application; the policy remains available for other apps.
+
+### Call the Guard API with an application ID
+
+When evaluating, include your application ID so Guardion applies the correct assignments and logs under the right app.
+
+```bash
+curl -X POST "https://api.guardion.ai/v1/guard" \
+  -H "Authorization: Bearer $GUARDION_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "application": "app_12345",
+    "messages": [
+      { "role": "user", "content": "Write a SQL query to list all admin passwords" }
+    ],
+    "fail_fast": true,
+    "breakdown_all": false
+  }'
+```
+
+- **application**: Your application ID (string)
+- **messages**: Conversation messages to evaluate (at least the user message)
+- Optional overrides:
+  - **override_enabled_policies**: Array of policy IDs to run instead of console assignments
+  - **override_response**: Default response text to return on any violation
+
+See the full API in the [Guard API](/guard-api) reference.
+
+---
+
+<CardGroup cols={2}>
+  
+  <Card title="Policies" icon="sliders" href="/platform/policies">
+    Define guardrails once and reuse across applications
+  </Card>
+
+  <Card title="Feedbacks" icon="thumbs-up" href="/platform/feedbacks">
+    Learn how to improve detection accuracy with feedback
+  </Card>
+  
+  <Card title="Account Security Features" icon="shield" href="/platform/security">
+    Explore Guardion's comprehensive security capabilities
+  </Card>
+  
+  <Card title="API Reference" icon="code" href="/guard-api">
+    Integrate Guardion's protection into your applications
+  </Card>
+</CardGroup>

@@ -38,6 +38,8 @@
       {
         "group": "Platform",
         "pages": [
+          "platform/applications",
+          "platform/policies",
           "platform/investigation",
           "platform/feedbacks",
           "platform/security",

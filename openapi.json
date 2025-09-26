@@ -11,11 +11,11 @@
         },
         "version": "0.1.2"
     },
-  "servers": [
-    {
-      "url": "https://api.guardion.ai"
-    }
-  ],
+    "servers": [
+        {
+            "url": "https://api.guardion.ai"
+        }
+    ],
     "paths": {
         "/v1/policies": {
             "get": {
@@ -181,6 +181,137 @@
                         "HTTPBearer": []
                     }
                 ]
+            }
+        },
+        "/v1/logs": {
+            "get": {
+                "tags": [
+                    "Logs"
+                ],
+                "summary": "Get Logs",
+                "operationId": "Logs-get_logs",
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 1,
+                            "default": 1,
+                            "title": "Page"
+                        }
+                    },
+                    {
+                        "name": "page_size",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "maximum": 1000,
+                            "minimum": 1,
+                            "default": 100,
+                            "title": "Page Size"
+                        }
+                    },
+                    {
+                        "name": "application",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                { "type": "string" },
+                                { "type": "null" }
+                            ],
+                            "description": "Filter by application name",
+                            "title": "Application"
+                        },
+                        "description": "Filter by application name"
+                    },
+                    {
+                        "name": "session",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                { "type": "string" },
+                                { "type": "null" }
+                            ],
+                            "description": "Filter by session ID",
+                            "title": "Session"
+                        },
+                        "description": "Filter by session ID"
+                    },
+                    {
+                        "name": "from",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                { "type": "string", "format": "date-time" },
+                                { "type": "null" }
+                            ],
+                            "description": "Start datetime (ISO8601, e.g. 2025-09-26T10:00:00Z)",
+                            "title": "From"
+                        },
+                        "description": "Start datetime (ISO8601, e.g. 2025-09-26T10:00:00Z)"
+                    },
+                    {
+                        "name": "to",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                { "type": "string", "format": "date-time" },
+                                { "type": "null" }
+                            ],
+                            "description": "End datetime (ISO8601, e.g. 2025-09-26T23:59:59Z)",
+                            "title": "To"
+                        },
+                        "description": "End datetime (ISO8601, e.g. 2025-09-26T23:59:59Z)"
+                    },
+                    {
+                        "name": "last",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                { "type": "string" },
+                                { "type": "null" }
+                            ],
+                            "description": "Relative time window (e.g. 1h, 24h, 7d). If provided, 'from' and 'to' are ignored.",
+                            "title": "Last"
+                        },
+                        "description": "Relative time window (e.g. 1h, 24h, 7d). If provided, 'from' and 'to' are ignored."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/LogsResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     },
@@ -647,6 +778,171 @@
                     "type"
                 ],
                 "title": "ValidationError"
+            },
+            "LogsResponse": {
+                "properties": {
+                    "logs": {
+                        "items": {
+                            "$ref": "#/components/schemas/LogItem"
+                        },
+                        "type": "array",
+                        "title": "Logs"
+                    },
+                    "total": {
+                        "type": "integer",
+                        "title": "Total"
+                    },
+                    "page": {
+                        "type": "integer",
+                        "title": "Page"
+                    },
+                    "page_size": {
+                        "type": "integer",
+                        "title": "Page Size"
+                    },
+                    "total_pages": {
+                        "type": "integer",
+                        "title": "Total Pages"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "logs",
+                    "total",
+                    "page",
+                    "page_size",
+                    "total_pages"
+                ],
+                "title": "LogsResponse"
+            },
+            "LogItem": {
+                "properties": {
+                    "log_id": {
+                        "type": "string",
+                        "title": "Log Id"
+                    },
+                    "session": {
+                        "type": "string",
+                        "title": "Session"
+                    },
+                    "application": {
+                        "type": "string",
+                        "title": "Application"
+                    },
+                    "flagged": {
+                        "type": "boolean",
+                        "title": "Flagged"
+                    },
+                    "evals": {
+                        "items": {
+                            "$ref": "#/components/schemas/Eval"
+                        },
+                        "type": "array",
+                        "title": "Evals"
+                    },
+                    "messages": {
+                        "items": {
+                            "$ref": "#/components/schemas/LogMessages"
+                        },
+                        "type": "array",
+                        "title": "Messages"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "title": "Created At"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "title": "Updated At"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "log_id",
+                    "session",
+                    "application",
+                    "flagged",
+                    "evals",
+                    "messages",
+                    "created_at",
+                    "updated_at"
+                ],
+                "title": "LogItem"
+            },
+            "Eval": {
+                "properties": {
+                    "eval_id": {
+                        "type": "string",
+                        "title": "Eval Id"
+                    },
+                    "policy": {
+                        "type": "string",
+                        "title": "Policy"
+                    },
+                    "threshold": {
+                        "type": "number",
+                        "title": "Threshold"
+                    },
+                    "detector": {
+                        "type": "string",
+                        "title": "Detector"
+                    },
+                    "target": {
+                        "type": "string",
+                        "title": "Target"
+                    },
+                    "detected": {
+                        "type": "boolean",
+                        "title": "Detected"
+                    },
+                    "threat_score": {
+                        "type": "number",
+                        "title": "Threat Score"
+                    },
+                    "threat_type": {
+                        "type": "string",
+                        "title": "Threat Type"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "eval_id",
+                    "policy",
+                    "threshold",
+                    "detector",
+                    "target",
+                    "detected",
+                    "threat_score",
+                    "threat_type"
+                ],
+                "title": "Eval"
+            },
+            "LogMessages": {
+                "properties": {
+                    "role": {
+                        "type": "string",
+                        "title": "Role"
+                    },
+                    "content": {
+                        "type": "string",
+                        "title": "Content"
+                    },
+                    "flagged": {
+                        "anyOf": [
+                            { "type": "boolean" },
+                            { "type": "null" }
+                        ],
+                        "title": "Flagged"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "role",
+                    "content"
+                ],
+                "title": "LogMessages"
             }
         },
         "securitySchemes": {
@@ -660,6 +956,10 @@
         {
             "name": "Guard",
             "description": "API endpoints for real-time Guardrails"
+        },
+        {
+            "name": "Logs",
+            "description": "API endpoints for logs"
         }
     ]
 }

@@ -68,7 +68,8 @@
             "pages": [
                 "guard-api",
                 "openai-compatible",
-                "policy-api"
+                "policy-api",
+                "logs-api"
             ]
         }
     ]

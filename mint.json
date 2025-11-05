@@ -49,7 +49,18 @@
       {
         "group": "Detectors",
         "pages": [
-          "modern-guard"
+          "detectors",
+          "injection",
+          "pii",
+          "moderation"
+        ]
+      },
+      {
+        "group": "Guardion Models",
+        "pages": [
+          "modern-guard",
+          "pii-model",
+          "moderation-model"
         ]
       },
       {

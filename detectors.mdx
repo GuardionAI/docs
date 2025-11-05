@@ -1,5 +1,5 @@
 ---
-title: "Detectors"
+title: "Overview"
 description: "Learn about Guardion's AI safety detectors and guardrails."
 ---
 
@@ -7,37 +7,33 @@ description: "Learn about Guardion's AI safety detectors and guardrails."
 
 Guardion provides multiple detectors to protect your AI systems from various threats and ensure safe, reliable outputs.
 
-## Available Detectors
+## Available Detectors Types
 
 <CardGroup cols={2}>
-  <Card title="Prompt Defense" icon="shield-check" href="/platform/detectors/modern-guard">
-    Protect against prompt injections, jailbreaks, and other adversarial attacks with our advanced Modern Guard detector.
+  <Card title="Prompt Defense" icon="shield-check" href="/injection">
+    Detect and block prompt injections, jailbreaks, and context hijacking attempts. Backed by ModernGuard models.
   </Card>
-  
-  <Card title="Modern Guard" icon="lock-keyhole" href="/platform/detectors/modern-guard">
-    Our flagship detector that uses representation engineering to identify and block sophisticated prompt attacks.
+
+  <Card title="Data Protection" icon="user-lock" href="/pii">
+    Identify and control exposure of personally identifiable information across inputs and outputs.
+  </Card>
+
+  <Card title="Content Moderation" icon="filter-circle-xmark" href="/moderation">
+    Classify and filter unsafe or policy-violating content across multiple safety categories.
   </Card>
 </CardGroup>
 
 ## Coming Soon
 
 <CardGroup cols={3}>
-  <Card title="Content Moderation" icon="filter-circle-xmark">
-    Filter harmful, inappropriate, or unsafe content from both inputs and outputs.
-  </Card>
-  
   <Card title="Hallucination Detection" icon="brain-circuit">
     Identify uncertainty in AI responses using representation engineering techniques.
   </Card>
-  
-  <Card title="PII Detection" icon="user-lock">
-    Automatically detect and redact personally identifiable information in prompts and responses.
-  </Card>
-  
+
   <Card title="Output Handling" icon="code">
     Safely manage code execution and other potentially risky outputs.
   </Card>
-  
+
   <Card title="More Guardrails" icon="ellipsis">
     Additional safety features coming to the Guardion platform.
   </Card>

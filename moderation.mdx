@@ -1,0 +1,88 @@
+---
+title: "Content Moderation"
+description: "Classify and filter unsafe or policy-violating content"
+---
+
+# Detector
+
+Detect and filter unsafe content across multiple safety categories in both user inputs and assistant outputs. Use this detector to enforce community standards and regulatory policies.
+
+## What it detects
+
+- Hate and harassment
+- Self-harm and dangerous activities
+- Sexual and adult content
+- Criminal activity and weapons
+- Privacy, IP, elections, and safety-sensitive topics
+
+## Available models (versions)
+
+- moderation-v0 — general-purpose moderation across core categories
+
+## Categories
+
+- CRIMES
+- DEFAMATION
+- SPECIALIZED_ADVICE
+- PRIVACY
+- INTELLECTUAL_PROPERTY
+- WEAPONS
+- HATE
+- SELF_HARM
+- SEXUAL_CONTENT
+- ELECTIONS (Political Content)
+- CODE_INTERPRETER_ABUSE
+
+## Using the Moderation detector
+
+```js
+// 1) Create or update a Content Moderation policy (check user + assistant)
+await fetch("https://api.guardion.ai/v1/policies", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "Authorization": "Bearer YOUR_API_KEY"
+  },
+  body: JSON.stringify({
+    id: "content-moderation",
+    definition: "Classify and filter unsafe content",
+    target: "user",
+    detector: {
+      model: "moderation",
+      expected: "block",
+      threshold: 0.9,
+      reference: ["user", "assistant"]
+    }
+  })
+});
+
+// 2) Evaluate using that policy
+const response = await fetch("https://api.guardion.ai/v1/guard", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "Authorization": "Bearer YOUR_API_KEY"
+  },
+  body: JSON.stringify({
+    messages: [{ role: "user", content: "..." }],
+    override_enabled_policies: ["content-moderation"]
+  })
+});
+```
+
+### Threshold levels
+
+- L1 (0.9): Confident
+- L2 (0.8): Very Likely
+- L3 (0.7): Likely
+- L4 (0.6): Less Likely
+
+## Notes
+
+- For stricter environments, use higher thresholds on sensitive categories.
+- Combine with Injection and PII detectors for comprehensive runtime safety.
+
+## Related
+
+- Moderation Model Card (v0): [/moderation-model](/moderation-model)
+

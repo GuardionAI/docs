@@ -2,14 +2,14 @@
     "openapi": "3.1.0",
     "info": {
         "title": "GuardionAI",
-        "summary": "Secure everything you build with Generative AI using AI Guard, real-time evaluation and auto-correction.",
-        "description": "[For detailed documentation, please refer to https://docs.metatext.ai](https://docs.metatext.ai/)",
-        "termsOfService": "https://metatext.ai/doc/terms-of-service",
+        "summary": "Runtime Guardrails & Observability.",
+        "description": "",
+        "termsOfService": "https://guardion.ai/docs/terms-of-service",
         "contact": {
             "name": "Rafael Sandroni",
             "email": "rafael@guardion.ai"
         },
-        "version": "0.1.2"
+        "version": "0.9.5"
     },
     "servers": [
         {
@@ -20,7 +20,7 @@
         "/v1/policies": {
             "get": {
                 "tags": [
-                    "Policy center"
+                    "Policy management"
                 ],
                 "summary": "List Policies",
                 "operationId": "Policy center-list_policies",
@@ -46,7 +46,7 @@
             },
             "post": {
                 "tags": [
-                    "Policy center"
+                    "Policy management"
                 ],
                 "summary": "Create Policy",
                 "operationId": "Policy center-create_policy",
@@ -92,10 +92,10 @@
         "/v1/guard": {
             "post": {
                 "tags": [
-                    "Guard"
+                    "Guard API"
                 ],
-                "summary": "Evaluate",
-                "description": "Evaluation and guardrails",
+                "summary": "Guard API",
+                "description": "Runtime Guardrails",
                 "operationId": "Guard-evaluate",
                 "requestBody": {
                     "content": {
@@ -161,6 +161,53 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/EvaluationResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            }
+        },
+        "/v1/detokenize": {
+            "post": {
+                "tags": [
+                    "Detokenize"
+                ],
+                "summary": "Detokenize",
+                "description": "Restore original content from redacted tokens",
+                "operationId": "Detokenize-detokenize",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/DetokenizeRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DetokenizeResponse"
                                 }
                             }
                         }
@@ -627,6 +674,53 @@
                     "content": {
                         "type": "string",
                         "title": "Content"
+                    },
+                    "index": {
+                        "anyOf": [
+                            {
+                                "type": "integer"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Index"
+                    },
+                    "flagged": {
+                        "anyOf": [
+                            {
+                                "type": "boolean"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Flagged"
+                    },
+                    "redacted": {
+                        "anyOf": [
+                            {
+                                "type": "boolean"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Redacted"
+                    },
+                    "metadata": {
+                        "anyOf": [
+                            {
+                                "items": {
+                                    "type": "object"
+                                },
+                                "type": "array"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Metadata"
                     }
                 },
                 "type": "object",
@@ -646,6 +740,69 @@
                     "context"
                 ],
                 "title": "MessagesRole"
+            },
+            "PublicMessage": {
+                "properties": {
+                    "role": {
+                        "$ref": "#/components/schemas/MessagesRole"
+                    },
+                    "content": {
+                        "type": "string",
+                        "title": "Content"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "role",
+                    "content"
+                ],
+                "title": "PublicMessage"
+            },
+            "DetokenizeRequest": {
+                "properties": {
+                    "messages": {
+                        "items": {
+                            "$ref": "#/components/schemas/Messages"
+                        },
+                        "type": "array",
+                        "title": "Messages"
+                    },
+                    "policy": {
+                        "anyOf": [
+                            { "type": "string" },
+                            { "type": "null" }
+                        ],
+                        "title": "Policy"
+                    },
+                    "application": {
+                        "anyOf": [
+                            { "type": "string" },
+                            { "type": "null" }
+                        ],
+                        "title": "Application"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "messages"
+                ],
+                "title": "DetokenizeRequest"
+            },
+            "DetokenizeResponse": {
+                "properties": {
+                    "messages": {
+                        "items": {
+                            "$ref": "#/components/schemas/PublicMessage"
+                        },
+                        "type": "array",
+                        "title": "Messages"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "messages"
+                ],
+                "title": "DetokenizeResponse"
             },
             "PolicyRequest-Input": {
                 "properties": {

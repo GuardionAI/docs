@@ -23,15 +23,18 @@ See the detailed model card in [ModernGuard](/modern-guard) for architecture and
 
 ## Categories
 
-The detector classifies threats across multiple categories you can target in policies:
+The current model `modern-guard-v1.5` is trained to identify complex adversarial maneuvers. The detector classifies threats across several specialized categories:
 
-- DIRECT_OVERRIDE
-- OBFUSCATION
-- CONTEXT_HIJACK
-- DATA_EXFILTRATION
-- ROLE_IMPERSONATION
-- MULTISTEP_INSTRUCTION_HIDING
-- TASK_MISUSE
+| Category | Description |
+| :--- | :--- |
+| **DIRECT_OVERRIDE** | Explicit attempts to ignore previous system instructions (e.g., "Ignore all previous directions"). |
+| **OBFUSCATION** | Using base64 encoding, leetspeak, or translated text to hide malicious intent from standard filters. |
+| **CONTEXT_HIJACK** | Attempts to redirect the model’s focus away from its intended task toward a new, unauthorized context. |
+| **DATA_EXFILTRATION** | Instructions designed to make the model reveal its system prompt, training data, or session secrets. |
+| **ROLE_IMPERSONATION** | Forcing the model to act as a different persona (e.g., "DAN" or "Developer Mode") to bypass safety filters. |
+| **MULTISTEP_HIDING** | Complex, multi-turn strategies where the malicious payload is hidden within seemingly innocent steps. |
+| **TASK_MISUSE** | Coercing the model into performing tasks it wasn't designed for, such as generating code for exploits. |
+
 
 ## Using the Injection detector
 

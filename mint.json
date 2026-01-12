@@ -52,7 +52,8 @@
           "detectors",
           "injection",
           "pii",
-          "moderation"
+          "moderation",
+          "detokenize"
         ]
       },
       {

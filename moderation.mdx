@@ -3,8 +3,6 @@ title: "Content Moderation"
 description: "Classify and filter unsafe or policy-violating content"
 ---
 
-# Detector
-
 Detect and filter unsafe content across multiple safety categories in both user inputs and assistant outputs. Use this detector to enforce community standards and regulatory policies.
 
 ## What it detects
@@ -46,12 +44,10 @@ await fetch("https://api.guardion.ai/v1/policies", {
   body: JSON.stringify({
     id: "content-moderation",
     definition: "Classify and filter unsafe content",
-    target: "user",
+    threshold: 0.9,
     detector: {
-      model: "moderation",
-      expected: "block",
-      threshold: 0.9,
-      reference: ["user", "assistant"]
+      model: "moderation-v0",
+      target: "user",
     }
   })
 });
@@ -65,7 +61,7 @@ const response = await fetch("https://api.guardion.ai/v1/guard", {
   },
   body: JSON.stringify({
     messages: [{ role: "user", content: "..." }],
-    override_enabled_policies: ["content-moderation"]
+    policy: "content-moderation"
   })
 });
 ```

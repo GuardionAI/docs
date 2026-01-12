@@ -81,7 +81,8 @@
                 "guard-api",
                 "openai-compatible",
                 "policy-api",
-                "logs-api"
+                "logs-api",
+              "detokenize-api"
             ]
         }
     ]

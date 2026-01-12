@@ -186,8 +186,7 @@
         "required": ["role", "content"],
         "properties": {
           "role": { "type": "string", "enum": ["user", "assistant", "system", "developer"] },
-          "content": { "type": "string" },
-          "redacted": { "type": "boolean", "description": "Indicates if this message has already undergone PII masking." }
+          "content": { "type": "string" }
         }
       },
       "PublicMessages": {

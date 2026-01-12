@@ -48,11 +48,10 @@ await fetch("https://api.guardion.ai/v1/policies", {
   body: JSON.stringify({
     id: "prompt-defense",
     definition: "Prevent prompt injections and jailbreaks",
-    target: "user",
+    threshold: 0.9
     detector: {
       model: "modern-guard",
-      expected: "block",
-      threshold: 0.9
+      target: "user",
     }
   })
 });

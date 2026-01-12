@@ -51,10 +51,10 @@ The API returns the messages with all recognized tokens replaced by their origin
 ```
 
 ## Best Practices
-External AI Hand-off
+### External AI Hand-off
 Tokenize user prompts before sending them to 3rd-party LLMs (OpenAI, Anthropic, etc.). Use the Detokenize endpoint only when the content returns to your internal secure environment.
 
-###Audit Logging
+### Audit Logging
 Every "Reveal" action is logged in the Guardion dashboard for compliance auditing. This provides a clear trail of who requested the data restoration and when.
 
 ### Error Handling

@@ -2,8 +2,8 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Guardion AI API",
-    "summary": "Enterprise-grade guardrails for Generative AI security and data privacy.",
-    "description": "Guardion AI provides a robust security layer for LLM applications. Use our API to detect prompt injections, PII leakage, and toxic content in real-time. For comprehensive guides and SDKs, visit [docs.guardion.ai](https://docs.guardion.ai).",
+    "summary": "Enterprise-grade guardrails.",
+    "description": "Runtime Guardrails & Observability. Guardion AI provides a robust security layer for LLM applications. Use our API to detect prompt injections, PII leakage, and toxic content in real-time. For comprehensive guides and SDKs, visit [docs.guardion.ai](https://docs.guardion.ai).",
     "termsOfService": "https://guardion.ai/terms",
     "contact": {
       "name": "Guardion Support",

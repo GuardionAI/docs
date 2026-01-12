@@ -135,3 +135,48 @@ The response flags the content as unsafe (`flagged: true`) and provides the sani
 }
 
 ```
+## Reveal (Detokenize)
+The Reveal endpoint is the secure inbound process used to restore original sensitive data from vaulted tokens. This is the reverse of the protection process and is specifically designed for "sandwich" architectures where data is protected before being sent to an external AI vendor and needs to be restored upon return.
+
+### How it works
+When you send a message containing tokens (e.g., [CONTACT_8F3A21]) to this endpoint, Guardion AI identifies the unique hashes, looks them up in your secure PII Vault, and re-injects the raw values into the text.
+
+Security Note: Single-Use Reveal For maximum security, tokens follow a Single-Reveal Policy. Once a token has been detokenized, the association in the vault is purged. Subsequent attempts to reveal the same token will fail. This prevents data leakage in case logs or cached responses are compromised.
+
+API Endpoint
+POST /v1/detokenize
+
+Request Payload
+You must provide the policy or application ID associated with the original protection event so the API can locate the correct vault context.
+
+JSON
+
+{
+  "policy": "pii-policy",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Please update my billing record. My new email is [CONTACT_8F3A21] and my CPF is [DOCUMENT_9C4B52]. Also change my address to [LOCATION_7D1E99]."
+    }
+  ]
+}
+Response
+The API returns the messages with all recognized tokens replaced by their original, unredacted values.
+
+JSON
+
+{
+  "messages": [
+    {
+      "role": "user",
+      "content": "Please update my billing record. My new email is marcus.wright@example.com and my CPF is 123.456.789-00. Also change my address to Av. Paulista, 1000."
+    }
+  ]
+}
+
+Best Practices
+External AI Hand-off: Tokenize user prompts before sending them to 3rd-party LLMs (OpenAI, Anthropic, etc.). Use the Detokenize endpoint only when the data returns to your internal secure environment.
+
+Audit Logging: Every "Reveal" action is logged in the Guardion dashboard for compliance auditing, showing who requested the data restoration and when.
+
+Error Handling: If a token has already been revealed or has expired, the API will return the token string as-is or throw a 410 Gone error depending on your configuration.

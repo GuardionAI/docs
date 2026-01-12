@@ -190,6 +190,14 @@
           "redacted": { "type": "boolean", "description": "Indicates if this message has already undergone PII masking." }
         }
       },
+      "PublicMessages": {
+        "type": "object",
+        "required": ["role", "content"],
+        "properties": {
+          "role": { "type": "string", "enum": ["user", "assistant", "system", "developer"] },
+          "content": { "type": "string" }
+        }
+      },
       "Breakdown": {
         "type": "object",
         "required": ["policy_id", "detector", "detected"],
@@ -213,15 +221,16 @@
         "type": "object",
         "required": ["messages"],
         "properties": {
-          "messages": { "type": "array", "items": { "$ref": "#/components/schemas/Messages" } },
-          "application": { "type": "string" }
+          "messages": { "type": "array", "items": { "$ref": "#/components/schemas/PublicMessages" } },
+          "application": { "type": "string" },
+          "policy": { "type": "string" }
         }
       },
       "DetokenizeResponse": {
         "type": "object",
         "required": ["messages"],
         "properties": {
-          "messages": { "type": "array", "items": { "$ref": "#/components/schemas/Messages" } }
+          "messages": { "type": "array", "items": { "$ref": "#/components/schemas/PublicMessages" } }
         }
       },
       "PublicPolicy-Input": {

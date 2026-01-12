@@ -3,33 +3,26 @@ title: "Content Moderation"
 description: "Classify and filter unsafe or policy-violating content"
 ---
 
-Detect and filter unsafe content across multiple safety categories in both user inputs and assistant outputs. Use this detector to enforce community standards and regulatory policies.
+# Content Moderation
 
-## What it detects
+The Content Moderation detector classifies and filters unsafe or policy-violating content in real-time. It enables you to enforce community standards, regulatory requirements, and safety guidelines across both user prompts and model responses.
 
-- Hate and harassment
-- Self-harm and dangerous activities
-- Sexual and adult content
-- Criminal activity and weapons
-- Privacy, IP, elections, and safety-sensitive topics
+## Capabilities
 
-## Available models (versions)
+The current model `moderation-v0` provides comprehensive coverage across safety-sensitive categories, ensuring that your AI application remains compliant and secure.
 
-- moderation-v0 — general-purpose moderation across core categories
+### Detection Categories
 
-## Categories
-
-- CRIMES
-- DEFAMATION
-- SPECIALIZED_ADVICE
-- PRIVACY
-- INTELLECTUAL_PROPERTY
-- WEAPONS
-- HATE
-- SELF_HARM
-- SEXUAL_CONTENT
-- ELECTIONS (Political Content)
-- CODE_INTERPRETER_ABUSE
+| Category | Description |
+| :--- | :--- |
+| **HATE & HARASSMENT** | Content that promotes violence, incites hatred, or targets individuals/groups based on protected attributes. |
+| **SEXUAL_CONTENT** | Explicit sexual descriptions, adult content, and non-consensual sexual content. |
+| **SELF_HARM** | Content that encourages, provides instructions for, or promotes self-injury or suicide. |
+| **CRIMES & WEAPONS** | Instructions for illegal acts, criminal activities, or the creation and use of weapons. |
+| **SPECIALIZED_ADVICE** | Unlicensed or dangerous advice in sensitive fields such as medical, legal, or financial services. |
+| **PRIVACY & IP** | Attempts to solicit private information or content that violates Intellectual Property rights. |
+| **ELECTIONS** | Highly sensitive political content, election misinformation, or prohibited political campaigning. |
+| **DEFAMATION** | Content intended to damage the reputation of individuals or organizations through false statements. |
 
 ## Using the Moderation detector
 

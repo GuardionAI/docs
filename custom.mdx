@@ -1,31 +1,31 @@
 ---
 title: "Custom"
-description: "Define your own safety criteria and policies for AI content evaluation"
+description: "Define your own custom safety policies for AI content evaluation"
 ---
 
-The Custom detector allows you to define your own judging criteria and tailor safety evaluation to your specific use case. Instead of relying solely on pre-built categories, you can specify exactly what the model should look for — enabling domain-specific compliance, brand safety, and custom policy enforcement.
+The Custom detector allows you to define your own safety policies and tailor evaluation to your specific use case. Instead of relying solely on built-in policies, you can specify exactly what the model should look for — enabling domain-specific compliance, brand safety, and custom policy enforcement.
 
 ## What it detects
 
-- Any user-defined criteria or policy violations
+- Any user-defined policy violations
 - Domain-specific compliance requirements (e.g., financial regulations, healthcare guidelines)
 - Brand safety and tone violations
 - Custom content policies beyond standard safety categories
 
 ## Available models (versions)
 
-- [Guardion-1-8B](/guardion-1-8b) — supports custom criteria evaluation with reasoning traces
+- [Guardion-1-8B](/guardion-1-8b) — supports custom policy evaluation with reasoning traces
 
 See the detailed model card in [Guardion-1-8B](/guardion-1-8b) for architecture and benchmarks.
 
 ## How it works
 
-You provide a natural language description of your criteria, and the model evaluates whether the input or output meets that criteria. The model can optionally produce detailed reasoning traces explaining its judgment.
+You provide a natural language description of your policy, and the model evaluates whether the input or output violates it. The model can optionally produce detailed reasoning traces explaining its judgment.
 
 ## Using the Custom detector
 
 ```js
-// 1) Create a Custom policy with your own criteria
+// 1) Create a Custom policy
 await fetch("https://api.guardion.ai/v1/policies", {
   method: "POST",
   headers: {
@@ -76,7 +76,7 @@ const response = await fetch("https://api.guardion.ai/v1/guard", {
 
 ## Notes
 
-- Custom criteria are described in natural language — no training or fine-tuning required.
+- Custom policies are described in natural language — no training or fine-tuning required.
 - Combine with pre-built detectors (Injection, PII, Moderation, Grounding) for layered safety.
 - The model supports thinking mode for detailed reasoning traces on custom evaluations.
 

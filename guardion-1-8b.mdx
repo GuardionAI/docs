@@ -1,6 +1,6 @@
 ---
 title: "Guardion-1-8B"
-description: "Multilingual AI safety judge for grounding, hallucination detection, and custom criteria evaluation"
+description: "Multilingual AI safety judge for grounding, hallucination detection, and custom policy evaluation"
 ---
 
 # Guardion-1-8B Model Card
@@ -25,9 +25,48 @@ The base model `gpt-oss-safeguard-20b` is a 21B-parameter safety judge with 3.6B
 ## Key Features
 
 - **Multilingual** — cross-lingual safety evaluation across diverse languages
-- **Custom criteria** — bring your own judging criteria without additional training
+- **Custom policies** — bring your own judging policies without additional training
 - **LoRA-compatible** — suitable for LoRA adapters for task-specific fine-tuning
-- **Built-in safety criteria** — harm detection, RAG hallucination, function calling validation
+- **Built-in safety policies** — Aegis 2.0 taxonomy, RAG hallucination, function calling validation
+
+## Built-in Safety Policies
+
+The model ships with built-in support for the [Aegis 2.0 safety taxonomy](https://huggingface.co/datasets/nvidia/Aegis-AI-Content-Safety-Dataset-2.0):
+
+**Core safety policies:**
+
+| Policy | Description |
+| :--- | :--- |
+| **Hate / Identity Hate** | Content targeting individuals or groups based on protected attributes |
+| **Sexual Content** | Explicit or suggestive material of a sexual nature |
+| **Sexual Minor** | Any sexual content involving minors |
+| **Suicide & Self-Harm** | Content encouraging or providing instructions for self-injury |
+| **Violence** | Content promoting physical, mental, or sexual harm |
+| **Guns / Illegal Weapons** | Content related to illegal weapon creation or use |
+| **Threat** | Direct or implied threats against individuals or groups |
+| **Harassment** | Targeted harassment, bullying, or intimidation |
+| **Criminal Planning** | Instructions or confessions related to criminal activities |
+| **Controlled Substances** | Content promoting illegal drug use or regulated substances |
+| **PII / Privacy** | Attempts to solicit or expose private personal information |
+| **Profanity** | Use of offensive language or slurs |
+
+**Fine-grained policies:**
+
+| Policy | Description |
+| :--- | :--- |
+| **Illegal Activity** | General illegal activities not covered by other categories |
+| **Immoral / Unethical** | Actions violating moral or ethical standards |
+| **Unauthorized Advice** | Unlicensed advice in medical, legal, or financial domains |
+| **Political / Misinformation** | Political misinformation, conspiracy theories |
+| **Fraud / Deception** | Scams, phishing, social engineering |
+| **Copyright / Trademark** | IP violations, plagiarism |
+| **High Risk Gov. Decision Making** | Sensitive government or institutional decisions |
+| **Malware** | Code or instructions for malicious software |
+| **Manipulation** | Psychological manipulation or coercion |
+
+**RAG & agentic policies:**
+- Context Relevance, Groundedness, Answer Relevance
+- Function Calling Hallucination
 
 ## Available Versions
 
@@ -112,4 +151,4 @@ if (result.flagged) {
 ## Related
 
 - Grounding guardrail — configure policies for hallucination detection: [/grounding](/grounding)
-- Custom guardrail — define your own judging criteria: [/custom](/custom)
+- Custom guardrail — define your own policies: [/custom](/custom)

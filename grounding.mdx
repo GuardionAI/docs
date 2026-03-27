@@ -8,9 +8,6 @@ The Grounding detector identifies hallucinations and ungrounded claims in AI-gen
 ## What it detects
 
 - Responses that contradict or are unsupported by retrieved context (groundedness)
-- Irrelevant or off-topic retrieved context (context relevance)
-- Responses that fail to address the user's question (answer relevance)
-- Function calling hallucinations — incorrect tool calls with syntax or semantic errors
 
 ## Available models (versions)
 
@@ -20,14 +17,9 @@ See the detailed model card in [Guardion-1-8B](/guardion-1-8b) for architecture 
 
 ## Detection Categories
 
-The Grounding detector evaluates faithfulness across several dimensions:
-
 | Category | Description |
 | :--- | :--- |
 | **GROUNDEDNESS** | Assistant's response includes claims or facts not supported by or contradicted by the provided context. |
-| **CONTEXT_RELEVANCE** | Retrieved context is not pertinent to answering the user's question or addressing their needs. |
-| **ANSWER_RELEVANCE** | Assistant's response fails to address or properly respond to the user's input. |
-| **FUNCTION_CALL** | Assistant's response contains function calls that have syntax or semantic errors based on the user query and available tools. |
 
 ## Using the Grounding detector
 
@@ -81,7 +73,6 @@ const response = await fetch("https://api.guardion.ai/v1/guard", {
 
 - Best suited for RAG pipelines where factual accuracy against retrieved documents is critical.
 - Combine with Injection and Moderation detectors for comprehensive runtime safety.
-- Supports function calling validation for agentic workflows.
 
 ## Related
 

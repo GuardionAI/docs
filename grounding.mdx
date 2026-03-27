@@ -17,9 +17,16 @@ See the detailed model card in [Guardion-1-8B](/guardion-1-8b) for architecture 
 
 ## Detection Categories
 
-| Category | Description |
-| :--- | :--- |
-| **GROUNDEDNESS** | Assistant's response includes claims or facts not supported by or contradicted by the provided context. |
+| Category | Status | Description |
+| :--- | :--- | :--- |
+| **GROUNDEDNESS** | Available | Assistant's response includes claims or facts not supported by or contradicted by the provided context. |
+| **CONTEXT_RELEVANCE** | Coming soon | Retrieved context is not pertinent to answering the user's question or addressing their needs. |
+| **ANSWER_RELEVANCE** | Coming soon | Assistant's response fails to address or properly respond to the user's input. |
+| **FUNCTION_CALL** | Coming soon | Assistant's response contains function calls that have syntax or semantic errors based on the user query and available tools. |
+
+## Dashboard Output
+
+In the Guardion dashboard, the Grounding guardrail displays a binary **SAFE / UNSAFE** verdict for each evaluated response, along with the confidence score. This makes it easy to monitor grounding quality at a glance and drill into individual flagged responses for investigation.
 
 ## Using the Grounding detector
 

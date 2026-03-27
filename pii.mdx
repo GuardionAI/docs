@@ -38,7 +38,7 @@ First, configure a guard policy to specific the behavior. You can choose to simp
 {
   "id": "pii-policy",
   "definition": "Detect and mask PII exposure",
-  "threshold": 0.9 // Flag only confident
+  "threshold": 0.9 // L1 (Confident). Use 0.8 for L2, 0.7 for L3, 0.6 for L4
   "detector": {
     "model": "pii",
     "target": "assistant", // Monitors LLM output

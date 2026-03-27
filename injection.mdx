@@ -1,5 +1,5 @@
 ---
-title: "Prompt Defense"
+title: "Prompt Security"
 description: "Prompt Injection and Jailbreak detection powered by ModernGuard models"
 ---
 
@@ -41,7 +41,7 @@ The current model `modern-guard-v1.5` is trained to identify complex adversarial
 You configure the detector via guard policies. First create a policy, then evaluate with that policy by overriding enabled policies.
 
 ```js
-// 1) Create or update a Prompt Defense policy
+// 1) Create or update a Prompt Security policy
 await fetch("https://api.guardion.ai/v1/policies", {
   method: "POST",
   headers: {
@@ -51,7 +51,7 @@ await fetch("https://api.guardion.ai/v1/policies", {
   body: JSON.stringify({
     id: "prompt-defense",
     definition: "Prevent prompt injections and jailbreaks",
-    threshold: 0.9
+    threshold: 0.9 // L1 (Confident). Use 0.8 for L2, 0.7 for L3, 0.6 for L4
     detector: {
       model: "modern-guard",
       target: "user",

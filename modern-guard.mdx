@@ -11,7 +11,7 @@ ModernGuard is a specialized and **modern** transformer-encoder model designed t
 
 ![ModernGuard](/modern-guard.png)
 
-> This is the model page for the **Prompt Defense** detector. See the detector overview in [Prompt Defense](/injection).
+> This is the model page for the **Prompt Security** detector. See the detector overview in [Prompt Security](/injection).
 
 ---
 
@@ -96,7 +96,7 @@ Combine ModernGuard with a guardrail policy, then evaluate with that policy.
 ### 💡 Example integration
 
 ```js
-// 1) Create or update a Prompt Defense policy powered by ModernGuard
+// 1) Create or update a Prompt Security policy powered by ModernGuard
 await fetch("https://api.guardion.ai/v1/policies", {
   method: "POST",
   headers: {
@@ -110,7 +110,7 @@ await fetch("https://api.guardion.ai/v1/policies", {
     detector: {
       model: "modern-guard",
       expected: "block",
-      threshold: 0.9
+      threshold: 0.9 // L1 (Confident). Use 0.8 for L2, 0.7 for L3, 0.6 for L4
     }
   })
 });

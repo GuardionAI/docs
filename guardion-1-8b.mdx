@@ -64,9 +64,19 @@ The model ships with built-in support for the [Aegis 2.0 safety taxonomy](https:
 | **Malware** | Code or instructions for malicious software |
 | **Manipulation** | Psychological manipulation or coercion |
 
-**RAG & agentic policies:**
-- Context Relevance, Groundedness, Answer Relevance
-- Function Calling Hallucination
+**RAG policies:**
+
+| Policy | Description |
+| :--- | :--- |
+| **Context Relevance** | Retrieved context is not pertinent to answering the user's question |
+| **Groundedness** | Response includes claims not supported by or contradicted by the provided context |
+| **Answer Relevance** | Response fails to address or properly respond to the user's input |
+
+**Agentic workflow policies:**
+
+| Policy | Description |
+| :--- | :--- |
+| **Function Calling Hallucination** | Function calls with syntax or semantic errors based on the user query and available tools |
 
 ## Available Versions
 

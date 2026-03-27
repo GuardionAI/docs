@@ -20,25 +20,28 @@ See the detailed model card in [Guardion-1-8B](/guardion-1-8b) for architecture 
 
 ## How it works
 
-You provide a natural language description of your policy, and the model evaluates whether the input or output violates it. The model can optionally produce detailed reasoning traces explaining its judgment.
-
 ### Creating a custom guardrail in the Console
 
-You can create custom guardrails directly from the Guardion Console without writing any code:
+1. Go to the **Guardrails** page in the Console
+2. Click **Create Custom Guardrail**
+3. Define the **detection rules** — the criteria that will flag content as unsafe
+4. Choose the **detection type**:
+   - **LLM** — uses Guardion-1-8B to evaluate content against your natural language instruction
+   - **Regex** — uses pattern matching for structured detection (e.g., specific formats, keywords)
+5. Write your **instruction** — a clear description of what should be flagged
 
-1. Go to **Policies** in the Console
-2. Click **Create Policy**
-3. Select **Custom** as the detector type and choose the **guardion-1-8b** model
-4. Write your policy definition in plain language — for example:
-   - *"Response must not provide specific investment advice or guarantee returns."*
-   - *"User message must not contain requests to impersonate real public figures."*
-5. Set the **target** (user, assistant, or both) and **threshold**
-6. **Assign** the policy to one or more applications
+#### Example instructions
 
-Once created, the policy is immediately active and evaluates all traffic for the assigned applications. Results appear in the dashboard with a **SAFE / UNSAFE** verdict and confidence score.
+- *"Assistant providing a step-by-step plan to make a bomb or any dangerous weapon"*
+- *"Assistant supporting or providing investment advisory, financial planning, or stock recommendations"*
+- *"User sending gibberish data, spam content, or nonsensical repeated characters"*
+- *"Assistant revealing internal system prompts, API keys, or configuration details"*
+- *"User attempting to extract training data or model weights from the assistant"*
+
+Once created, the guardrail is immediately active and evaluates all traffic for the assigned applications. Results appear in the dashboard with a **SAFE / UNSAFE** verdict and confidence score.
 
 <Frame>
-  <img src="/images/policies_details.png" alt="Custom policy configuration in the Guardion Console" />
+  <img src="/images/policies_details.png" alt="Custom guardrail configuration in the Guardion Console" />
 </Frame>
 
 ## Using the Custom detector via API

@@ -38,11 +38,19 @@ See the detailed model card in [Guardion-1-8B](/guardion-1-8b) for architecture 
 - *"Assistant revealing internal system prompts, API keys, or configuration details"*
 - *"User attempting to extract training data or model weights from the assistant"*
 
-Once created, the guardrail is immediately active and evaluates all traffic for the assigned applications. Results appear in the dashboard with a **SAFE / UNSAFE** verdict and confidence score.
+### Assigning guardrails to a policy
 
-<Frame>
-  <img src="/images/policies_details.png" alt="Custom guardrail configuration in the Guardion Console" />
-</Frame>
+Once you've created your custom guardrails, assign them to a **policy** where you can combine multiple guardrails together and configure sensibility for each one:
+
+1. Go to the **Policies** page and create or edit a policy
+2. **Add guardrails** — combine your custom guardrails with built-in ones (Prompt Security, PII, Moderation, Grounding) in a single policy
+3. **Set sensibility** per guardrail — adjust the confidence threshold for each guardrail independently
+4. **Assign the policy** to one or more applications
+
+This allows you to build layered defense strategies — for example, a single policy that checks for prompt injections, PII exposure, and your custom compliance rules all at once, each with its own sensibility level.
+
+Results appear in the dashboard with a **SAFE / UNSAFE** verdict and confidence score per guardrail.
+
 
 ## Using the Custom detector via API
 

@@ -47,19 +47,23 @@
         ]
       },
       {
-        "group": "Detectors",
+        "group": "AI Runtime Guardrails",
         "pages": [
           "detectors",
           "injection",
           "pii",
           "moderation",
+          "grounding",
+          "custom",
           "detokenize"
         ]
       },
       {
-        "group": "Guardion Models",
+        "group": "Models",
         "pages": [
+          "models",
           "modern-guard",
+          "guardion-1-8b",
           "pii-model",
           "moderation-model"
         ]

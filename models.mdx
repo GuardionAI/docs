@@ -1,0 +1,39 @@
+---
+title: "Overview"
+description: "Learn about Guardion's AI safety models powering runtime guardrails."
+---
+
+# Models
+
+Guardion develops and fine-tunes specialized AI models for safety, security, and compliance. Each model powers one or more guardrails in the Guardion platform.
+
+## Available Models
+
+<CardGroup cols={2}>
+  <Card title="ModernGuard" icon="shield-check" href="/modern-guard">
+    Ultra-fast, multilingual transformer-encoder model for prompt attack detection. Sub-50ms latency with 8K token context support.
+  </Card>
+
+  <Card title="Guardion-1-8B" icon="brain" href="/guardion-1-8b">
+    Multilingual AI safety judge for grounding, hallucination detection, content moderation, and custom criteria evaluation. Fine-tuned from IBM Granite Guardian 3.3 8B.
+  </Card>
+
+  <Card title="PII v0" icon="user-lock" href="/pii-model">
+    Multilingual PII detection model for identifying names, contacts, locations, and personal documents.
+  </Card>
+
+  <Card title="Moderation v0" icon="filter-circle-xmark" href="/moderation-model">
+    General-purpose content moderation across safety categories including hate, self-harm, sexual content, and more.
+  </Card>
+</CardGroup>
+
+## Model Selection Guide
+
+| Use Case | Recommended Model |
+| :--- | :--- |
+| Prompt injection / jailbreak detection | ModernGuard |
+| RAG hallucination / grounding checks | Guardion-1-8B |
+| Custom safety criteria | Guardion-1-8B |
+| Content moderation | Moderation v0 / Guardion-1-8B |
+| PII detection & redaction | PII v0 |
+| Function calling validation | Guardion-1-8B |

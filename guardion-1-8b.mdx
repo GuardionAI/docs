@@ -126,7 +126,7 @@ await fetch("https://api.guardion.ai/v1/policies", {
     detector: {
       model: "guardion-1-8b",
       expected: "block",
-      threshold: 0.9
+      threshold: 0.9 // L1 (Confident). Use 0.8 for L2, 0.7 for L3, 0.6 for L4
     }
   })
 });

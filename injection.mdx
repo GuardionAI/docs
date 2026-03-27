@@ -51,7 +51,7 @@ await fetch("https://api.guardion.ai/v1/policies", {
   body: JSON.stringify({
     id: "prompt-defense",
     definition: "Prevent prompt injections and jailbreaks",
-    threshold: 0.9
+    threshold: 0.9 // L1 (Confident). Use 0.8 for L2, 0.7 for L3, 0.6 for L4
     detector: {
       model: "modern-guard",
       target: "user",

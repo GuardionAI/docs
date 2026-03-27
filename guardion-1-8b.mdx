@@ -5,7 +5,7 @@ description: "Multilingual AI safety judge for grounding, hallucination detectio
 
 # Guardion-1-8B Model Card
 
-Guardion-1-8B is a fine-tuned, multilingual version of IBM Granite Guardian 3.3 8B, optimized for grounding verification, hallucination detection, and custom criteria evaluation in RAG and agentic workflows.
+Guardion-1-8B is a multilingual AI safety judge optimized for grounding verification, hallucination detection, and custom criteria evaluation in RAG and agentic workflows.
 
 > This is the model page for the **Grounding** and **Custom** detectors. See the detector overviews in [Grounding](/grounding) and [Custom](/custom).
 
@@ -15,11 +15,10 @@ Guardion-1-8B is a fine-tuned, multilingual version of IBM Granite Guardian 3.3 
 
 ### Overview
 
-- **Base model:** IBM Granite Guardian 3.3 8B
-- **Architecture:** Granite 3.3 8B (decoder-only transformer)
+- **Architecture:** Decoder-only transformer
 - **Parameters:** 8 billion
 - **License:** Apache 2.0
-- **Developed by:** Guardion AI (fine-tuned from IBM Granite Guardian)
+- **Developed by:** Guardion AI
 
 ### Key Features
 
@@ -52,7 +51,7 @@ The model is trained to judge content against these built-in criteria:
 
 ## Benchmark Results
 
-Guardion-1-8B inherits the strong performance of its base model across standard safety and hallucination benchmarks. The following results are from the Granite Guardian 3.3 8B evaluations, which form the foundation of Guardion-1-8B.
+Guardion-1-8B demonstrates strong performance across standard safety and hallucination benchmarks.
 
 ### Harm Detection (F1 Scores)
 

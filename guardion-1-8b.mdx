@@ -5,7 +5,9 @@ description: "Multilingual AI safety judge for grounding, hallucination detectio
 
 # Guardion-1-8B Model Card
 
-Guardion-1-8B is a multilingual 8B-parameter AI safety judge designed to evaluate LLM outputs for factual grounding, hallucination, and policy compliance. It supports both RAG pipelines and agentic workflows with built-in and custom criteria.
+Guardion-1-8B is a pruned and quantized version of [OpenAI gpt-oss-safeguard-20b](https://huggingface.co/openai/gpt-oss-safeguard-20b), optimized for lower latency and local or specialized deployment while retaining **96% of the original model's quality**.
+
+The base model `gpt-oss-safeguard-20b` is a 21B-parameter safety judge with 3.6B active parameters, designed for evaluating LLM outputs across safety, grounding, and policy compliance tasks. Guardion-1-8B distills this into a compact 8B-parameter model with 2.7B active parameters — making it suitable for on-premise, edge, and latency-sensitive use cases.
 
 > This is the model page for the **Grounding** and **Custom** guardrails. See the guardrail overviews in [Grounding](/grounding) and [Custom](/custom).
 
@@ -13,7 +15,9 @@ Guardion-1-8B is a multilingual 8B-parameter AI safety judge designed to evaluat
 
 ## Overview
 
-- **Parameters:** 8 billion
+- **Base model:** OpenAI gpt-oss-safeguard-20b (21B params, 3.6B active)
+- **Parameters:** 8 billion (2.7B active)
+- **Optimization:** Pruned and quantized, retaining 96% quality
 - **Architecture:** Decoder-only transformer
 - **License:** Apache 2.0
 - **Developed by:** Guardion AI

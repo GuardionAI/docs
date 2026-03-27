@@ -53,3 +53,14 @@ Your App → Guardion Security Gateway → LLM Provider / MCP Server
 5. Safe responses are returned to your application
 
 All traffic is logged and visible in the Guardion dashboard for monitoring and investigation.
+
+## Agent Trace Observability
+
+Because the Security Gateway intercepts every LLM and MCP call, it captures complete agent traces — giving you deep visibility into multi-step agent workflows. This goes beyond simple request/response logging:
+
+- **Full action tracking** — see every tool call, LLM request, and decision an agent makes across its entire execution chain
+- **Action-level guardrails** — apply runtime guardrails not just on inputs and outputs, but on individual agent actions as they happen, blocking dangerous or policy-violating steps before they execute
+- **Chain analysis** — understand how agents combine actions, detect malicious or unintended action sequences, loops, or escalation patterns
+- **Observability dashboard** — visualize agent traces end-to-end, identify bottlenecks, and investigate flagged actions with full context
+
+This enables you to enforce policies at the action level — catching risks that only become visible when you see the full sequence of what an agent is doing, not just what it says.

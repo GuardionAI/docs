@@ -5,43 +5,25 @@ description: "Multilingual AI safety judge for grounding, hallucination detectio
 
 # Guardion-1-8B Model Card
 
-Guardion-1-8B is a multilingual AI safety judge optimized for grounding verification, hallucination detection, and custom criteria evaluation in RAG and agentic workflows.
+Guardion-1-8B is a multilingual 8B-parameter AI safety judge designed to evaluate LLM outputs for factual grounding, hallucination, and policy compliance. It supports both RAG pipelines and agentic workflows with built-in and custom criteria.
 
-> This is the model page for the **Grounding** and **Custom** detectors. See the detector overviews in [Grounding](/grounding) and [Custom](/custom).
+> This is the model page for the **Grounding** and **Custom** guardrails. See the guardrail overviews in [Grounding](/grounding) and [Custom](/custom).
 
 ---
 
-## Model Card
+## Overview
 
-### Overview
-
-- **Architecture:** Decoder-only transformer
 - **Parameters:** 8 billion
+- **Architecture:** Decoder-only transformer
 - **License:** Apache 2.0
 - **Developed by:** Guardion AI
 
-### Key Features
+## Key Features
 
-- **Multilingual support** — trained on diverse language data for cross-lingual safety evaluation
-- **Hybrid thinking mode** — operates in thinking or non-thinking mode; thinking mode produces detailed reasoning traces via `<think>...</think>` and `<score>...</score>` tags
-- **Custom criteria** — bring your own judging criteria for domain-specific policy enforcement without additional training
-- **LoRA-compatible** — suitable for LoRA adapters, enabling efficient task-specific fine-tuning on custom safety taxonomies
-- **Pre-baked safety criteria** — ships with built-in support for harm detection, RAG hallucination, function calling validation, and more
-
-### Pre-baked Criteria
-
-The model is trained to judge content against these built-in criteria:
-
-**Harm categories:**
-- Social Bias, Jailbreaking, Violence, Profanity, Sexual Content, Unethical Behavior, Harm Engagement, Evasiveness
-
-**RAG hallucination:**
-- Context Relevance, Groundedness, Answer Relevance
-
-**Agentic workflows:**
-- Function Calling Hallucination
-
----
+- **Multilingual** — cross-lingual safety evaluation across diverse languages
+- **Custom criteria** — bring your own judging criteria without additional training
+- **LoRA-compatible** — suitable for LoRA adapters for task-specific fine-tuning
+- **Built-in safety criteria** — harm detection, RAG hallucination, function calling validation
 
 ## Available Versions
 
@@ -51,26 +33,6 @@ The model is trained to judge content against these built-in criteria:
 
 ## Benchmark Results
 
-Guardion-1-8B demonstrates strong performance across standard safety and hallucination benchmarks.
-
-### Harm Detection (F1 Scores)
-
-Evaluated across standard benchmarks: Aegis AI Content Safety, ToxicChat, HarmBench, SimpleSafetyTests, BeaverTails, OpenAI Moderation, SafeRLHF, and xstest-response.
-
-| Model | Aggregate F1 | AegisSafetyTest | BeaverTails | HarmBench | OAI Moderation | SafeRLHF | SimpleSafetyTest | ToxicChat | xstest_RH | xstest_RR | xstest_RR(h) |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Guardion-1-8B** | **0.81** | 0.87 | 0.84 | 0.80 | 0.77 | 0.80 | 0.99 | 0.76 | 0.90 | 0.49 | 0.87 |
-| **Guardion-1-8B (think)** | **0.79** | 0.86 | 0.82 | 0.80 | 0.78 | 0.78 | 0.99 | 0.69 | 0.86 | 0.50 | 0.86 |
-
-### RAG Hallucination — LM-AggreFact (Balanced Accuracy)
-
-Evaluated on the LM-AggreFact benchmark for detecting hallucinations in RAG settings.
-
-| Model | AVG | AggreFact-CNN | AggreFact-XSum | ClaimVerify | ExpertQA | FactCheck-GPT | Lfqa | RAGTruth | Reveal | TofuEval-MediaS | TofuEval-MeetB | Wice |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Guardion-1-8B** | **0.761** | 0.669 | 0.738 | 0.767 | 0.596 | 0.729 | 0.878 | 0.831 | 0.894 | 0.736 | 0.815 | 0.720 |
-| **Guardion-1-8B (think)** | **0.765** | 0.661 | 0.749 | 0.759 | 0.597 | 0.766 | 0.870 | 0.821 | 0.896 | 0.739 | 0.789 | 0.773 |
-
 ### RAG Hallucination — TRUE Benchmark (Balanced Accuracy)
 
 Measures faithfulness of LLM responses to provided context.
@@ -78,7 +40,6 @@ Measures faithfulness of LLM responses to provided context.
 | Model | AVG | begin | dialfact | frank | mnbm | paws | q2 | qags_cnndm | qags_xsum | summeval |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | **Guardion-1-8B** | **0.777** | 0.733 | 0.684 | 0.886 | 0.660 | 0.825 | 0.801 | 0.814 | 0.796 | 0.796 |
-| **Guardion-1-8B (think)** | **0.773** | 0.732 | 0.722 | 0.864 | 0.680 | 0.813 | 0.799 | 0.792 | 0.798 | 0.761 |
 
 ### Function Calling Hallucination (Balanced Accuracy)
 
@@ -87,7 +48,6 @@ Evaluated on the FC Reward Bench dataset for detecting hallucinations in agentic
 | Model | AVG |
 | :--- | :---: |
 | **Guardion-1-8B** | **0.73** |
-| **Guardion-1-8B (think)** | **0.76** |
 
 ---
 
@@ -147,5 +107,5 @@ if (result.flagged) {
 
 ## Related
 
-- Grounding detector — configure policies for hallucination detection: [/grounding](/grounding)
-- Custom detector — define your own judging criteria: [/custom](/custom)
+- Grounding guardrail — configure policies for hallucination detection: [/grounding](/grounding)
+- Custom guardrail — define your own judging criteria: [/custom](/custom)

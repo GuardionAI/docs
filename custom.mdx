@@ -22,7 +22,26 @@ See the detailed model card in [Guardion-1-8B](/guardion-1-8b) for architecture 
 
 You provide a natural language description of your policy, and the model evaluates whether the input or output violates it. The model can optionally produce detailed reasoning traces explaining its judgment.
 
-## Using the Custom detector
+### Creating a custom guardrail in the Console
+
+You can create custom guardrails directly from the Guardion Console without writing any code:
+
+1. Go to **Policies** in the Console
+2. Click **Create Policy**
+3. Select **Custom** as the detector type and choose the **guardion-1-8b** model
+4. Write your policy definition in plain language — for example:
+   - *"Response must not provide specific investment advice or guarantee returns."*
+   - *"User message must not contain requests to impersonate real public figures."*
+5. Set the **target** (user, assistant, or both) and **threshold**
+6. **Assign** the policy to one or more applications
+
+Once created, the policy is immediately active and evaluates all traffic for the assigned applications. Results appear in the dashboard with a **SAFE / UNSAFE** verdict and confidence score.
+
+<Frame>
+  <img src="/images/policies_details.png" alt="Custom policy configuration in the Guardion Console" />
+</Frame>
+
+## Using the Custom detector via API
 
 ```js
 // 1) Create a Custom policy
@@ -59,7 +78,7 @@ const response = await fetch("https://api.guardion.ai/v1/guard", {
 
 ### Example use cases
 
-| Use Case | Custom Criteria Example |
+| Use Case | Custom Policy Example |
 | :--- | :--- |
 | **Financial compliance** | "Response must not provide specific investment advice or guarantee returns." |
 | **Healthcare** | "Response must include a disclaimer that it is not a substitute for professional medical advice." |

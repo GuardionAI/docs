@@ -1,0 +1,55 @@
+---
+title: "Security Gateway"
+description: "A specialized gateway to enforce runtime guardrails, PII redaction, and policies on any LLM and MCP call"
+---
+
+# Security Gateway
+
+The Guardion Security Gateway is a specialized proxy that sits between your applications and your LLM providers or MCP servers. It enforces runtime guardrails, PII redaction, and policy compliance on every call — without requiring changes to your application code.
+
+## What it does
+
+- **Runtime guardrails enforcement** — automatically applies your configured policies (Prompt Security, Moderation, Grounding, Custom) to every LLM and MCP request and response
+- **PII redaction** — detects and redacts personally identifiable information before it reaches the LLM, and restores it on the way back
+- **Policy enforcement** — ensures all traffic complies with your organization's safety policies before reaching any downstream provider
+
+## Built-in integrations
+
+The Security Gateway comes with built-in support for:
+
+### LLM Providers
+Connect to any major LLM provider through the gateway. All requests are automatically guarded by your configured policies.
+- OpenAI, Anthropic, Google, Azure OpenAI, AWS Bedrock, and more
+- Any OpenAI-compatible API endpoint
+
+### AI Gateways
+Layer Guardion on top of existing AI gateways for defense-in-depth.
+- LiteLLM, Portkey, and other routing gateways
+
+### MCP Registry
+Manage and secure your MCP (Model Context Protocol) server connections.
+- Centralized MCP server registry and discovery
+- Policy enforcement on all tool calls and responses
+
+### Token & Key Management
+- Manage API keys and tokens for all connected providers in one place
+- Smart routing across providers based on availability, cost, or latency
+- Rate limiting and usage tracking per application
+
+## How it works
+
+```
+Your App → Guardion Security Gateway → LLM Provider / MCP Server
+               ↓                              ↓
+         Policy check (input)          Policy check (output)
+         PII redaction                 PII restoration
+         Guardrail enforcement         Guardrail enforcement
+```
+
+1. Your application sends requests to the Security Gateway instead of directly to the LLM provider
+2. The gateway applies **input guardrails** — checking for prompt injections, PII, policy violations
+3. Clean requests are forwarded to the configured LLM provider or MCP server
+4. Responses pass through **output guardrails** — checking for hallucinations, unsafe content, grounding
+5. Safe responses are returned to your application
+
+All traffic is logged and visible in the Guardion dashboard for monitoring and investigation.

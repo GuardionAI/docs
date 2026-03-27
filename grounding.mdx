@@ -44,7 +44,7 @@ await fetch("https://api.guardion.ai/v1/policies", {
     definition: "Detect hallucinations and ungrounded claims",
     threshold: 0.9,
     detector: {
-      model: "guardion-1-8b",
+      model: "grounding",
       target: "assistant",
     }
   })
